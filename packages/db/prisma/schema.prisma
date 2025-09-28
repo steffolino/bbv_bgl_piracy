@@ -87,7 +87,6 @@ model BoxscoreRow {
 model Player {
   id      String   @id @default(cuid())
   name    String
-  aliases String[]
 
   boxscoreRows BoxscoreRow[]
   seasonStats  SeasonStat[]
@@ -99,7 +98,6 @@ model Player {
 model Team {
   id      String   @id @default(cuid())
   name    String
-  aliases String[]
 
   homeMatches  Match[]         @relation("HomeMatches")
   guestMatches Match[]         @relation("GuestMatches")
