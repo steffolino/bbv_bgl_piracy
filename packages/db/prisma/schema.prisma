@@ -40,7 +40,7 @@ model Season {
 }
 
 model Match {
-  matchId     String?  @id
+  matchId     String  @id
   matchNo     Int?
   spielplan_id String?
   seasonId    String
