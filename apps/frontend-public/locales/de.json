@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "players": "Spieler",
+    "dashboard": "Dashboard",
+    "explorer": "Explorer"
+  },
+  "dashboard": {
+    "title": "Basketball Statistiken Dashboard",
+    "subtitle": "Spieler-fokussierte Analysen für BGL Ligen",
+    "topPlayers": "Top Spieler",
+    "seasons": "Saisons",
+    "pointsPerGame": "Punkte pro Spiel",
+    "threePointPct": "3P%",
+    "freeThrowPct": "FT%"
+  },
+  "player": {
+    "profile": "Spielerprofil",
+    "stats": "Statistiken",
+    "career": "Karriere",
+    "season": "Saison {season}"
+  },
+  "common": {
+    "loading": "Lädt...",
+    "noData": "Keine Daten verfügbar",
+    "error": "Ein Fehler ist aufgetreten"
+  },
+  "filters": {
+    "team": "Team",
+    "bgLitzendorf": "BG Litzendorf",
+    "allTeams": "Alle Teams",
+    "season": "Saison",
+    "league": "Liga"
+  },
+  "theme": {
+    "light": "Hell",
+    "dark": "Dunkel"
+  }
+}

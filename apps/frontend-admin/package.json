@@ -1,0 +1,25 @@
+{
+  "name": "@bg/frontend-admin",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt dev --port 8081",
+    "build": "nuxt build",
+    "preview": "nuxt preview",
+    "typecheck": "nuxt typecheck",
+    "lint": "eslint .",
+    "clean": "rm -rf .turbo node_modules .nuxt .output dist"
+  },
+  "dependencies": {
+    "@bg/shared": "workspace:*",
+    "@nuxtjs/tailwindcss": "^6.8.4",
+    "nuxt": "^3.9.0",
+    "daisyui": "^4.4.24"
+  },
+  "devDependencies": {
+    "@nuxt/eslint-config": "^0.2.0",
+    "eslint": "^8.55.0",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.3.0"
+  }
+}

@@ -1,0 +1,45 @@
+name: Deploy Public Frontend
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'apps/frontend-public/**'
+      - 'packages/shared/**'
+      - '.github/workflows/deploy-pages-public.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'steffolino'
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: |
+          cd apps/frontend-public
+          pnpm build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: 'apps/frontend-public'
+          command: pages deploy .output/public --project-name=${{ vars.PROJECT_NAME_PUBLIC }}

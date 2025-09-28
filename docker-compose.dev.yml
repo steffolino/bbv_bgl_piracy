@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:8080"  # Public frontend
+      - "8081:8081"  # Admin frontend
+      - "8082:8082"  # API
+    volumes:
+      - ./ops/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend-public
+      - frontend-admin
+      - api-worker
+    networks:
+      - app-network
+
+  frontend-public:
+    build:
+      context: ./apps/frontend-public
+      dockerfile: Dockerfile.dev
+    environment:
+      - NUXT_PUBLIC_API_BASE=http://localhost:8082
+    volumes:
+      - ./apps/frontend-public:/app
+      - /app/node_modules
+    networks:
+      - app-network
+
+  frontend-admin:
+    build:
+      context: ./apps/frontend-admin
+      dockerfile: Dockerfile.dev
+    environment:
+      - NUXT_PUBLIC_API_BASE=http://localhost:8082
+    volumes:
+      - ./apps/frontend-admin:/app
+      - /app/node_modules
+    networks:
+      - app-network
+
+  api-worker:
+    build:
+      context: ./apps/api-worker
+      dockerfile: Dockerfile.dev
+    environment:
+      - DATABASE_URL=file:/app/dev.db
+    volumes:
+      - ./apps/api-worker:/app
+      - /app/node_modules
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

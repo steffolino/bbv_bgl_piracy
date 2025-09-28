@@ -1,0 +1,159 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model League {
+  ligaId     String   @id
+  seasonId   String
+  name       String
+  level      String?
+  region     String?
+  source     String
+  scraped_at DateTime
+
+  seasons Season[]
+  matches Match[]
+
+  @@unique([ligaId, seasonId])
+  @@map("leagues")
+}
+
+model Season {
+  seasonId String @id
+  year     Int
+  ligaId   String
+
+  league League @relation(fields: [ligaId], references: [ligaId])
+  matches Match[]
+  seasonStats SeasonStat[]
+  qaIssues QA_Issue[]
+
+  @@map("seasons")
+}
+
+model Match {
+  matchId     String?  @id
+  matchNo     Int?
+  spielplan_id String?
+  seasonId    String
+  ligaId      String
+  date        DateTime
+  homeTeamId  String
+  guestTeamId String
+  result      String?
+  status      String
+
+  season       Season        @relation(fields: [seasonId], references: [seasonId])
+  league       League        @relation(fields: [ligaId], references: [ligaId])
+  homeTeam     Team          @relation("HomeMatches", fields: [homeTeamId], references: [id])
+  guestTeam    Team          @relation("GuestMatches", fields: [guestTeamId], references: [id])
+  boxscoreRows BoxscoreRow[]
+  qaIssues     QA_Issue[]
+
+  @@unique([matchNo, seasonId])
+  @@unique([spielplan_id])
+  @@map("matches")
+}
+
+model BoxscoreRow {
+  id         String   @id @default(cuid())
+  matchId    String?
+  teamId     String
+  playerId   String?
+  playerName String
+  pts        Int      @default(0)
+  threePm    Int      @default(0) @map("3pm")
+  threePa    Int      @default(0) @map("3pa")
+  ftm        Int      @default(0)
+  fta        Int      @default(0)
+  source     String
+  scraped_at DateTime
+
+  match  Match?  @relation(fields: [matchId], references: [matchId])
+  team   Team    @relation(fields: [teamId], references: [id])
+  player Player? @relation(fields: [playerId], references: [id])
+
+  @@map("boxscore_rows")
+}
+
+model Player {
+  id      String   @id @default(cuid())
+  name    String
+  aliases String[]
+
+  boxscoreRows BoxscoreRow[]
+  seasonStats  SeasonStat[]
+  aliases_rel  Alias[]
+
+  @@map("players")
+}
+
+model Team {
+  id      String   @id @default(cuid())
+  name    String
+  aliases String[]
+
+  homeMatches  Match[]         @relation("HomeMatches")
+  guestMatches Match[]         @relation("GuestMatches")
+  boxscoreRows BoxscoreRow[]
+  aliases_rel  Alias[]
+
+  @@map("teams")
+}
+
+model SeasonStat {
+  id       String @id @default(cuid())
+  playerId String
+  seasonId String
+  pts      Int    @default(0)
+  g        Int    @default(0)
+  pts_g    Float  @default(0)
+  threePm  Int    @default(0) @map("3pm")
+  threePa  Int    @default(0) @map("3pa")
+  threePPct Float  @default(0) @map("3p_pct")
+  ftm      Int    @default(0)
+  fta      Int    @default(0)
+  ft_pct   Float  @default(0)
+
+  player Player @relation(fields: [playerId], references: [id])
+  season Season @relation(fields: [seasonId], references: [seasonId])
+
+  @@unique([playerId, seasonId])
+  @@map("season_stats")
+}
+
+model Alias {
+  id         String @id @default(cuid())
+  entityType String // "player" | "team"
+  value      String
+  targetId   String
+
+  player Player? @relation(fields: [targetId], references: [id])
+  team   Team?   @relation(fields: [targetId], references: [id])
+
+  @@unique([entityType, value])
+  @@map("aliases")
+}
+
+model QA_Issue {
+  id          String   @id @default(cuid())
+  type        String
+  matchId     String?
+  seasonId    String?
+  description String
+  status      String   @default("open") // "open" | "confirmed" | "ignored"
+  created_at  DateTime @default(now())
+
+  match  Match?  @relation(fields: [matchId], references: [matchId])
+  season Season? @relation(fields: [seasonId], references: [seasonId])
+
+  @@map("qa_issues")
+}
