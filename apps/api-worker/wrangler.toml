@@ -1,0 +1,15 @@
+name = "api-worker"
+main = "src/index.ts"
+compatibility_date = "2023-12-18"
+node_compat = true
+
+[env.development]
+vars = { ENVIRONMENT = "development" }
+
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+[[d1_databases]]
+binding = "DB"
+database_name = "bbv-bgl-piracy"
+database_id = "your-d1-database-id"
