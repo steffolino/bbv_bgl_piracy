@@ -13,7 +13,3 @@ vars = { ENVIRONMENT = "production" }
 binding = "DB"
 database_name = "bbv-bgl-piracy"
 database_id = "your-d1-database-id"
-
-[[migrations]]
-dir = "../../packages/db/prisma/migrations"
-format = "sql"

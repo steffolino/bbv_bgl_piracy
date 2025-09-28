@@ -18,7 +18,7 @@
         <!-- Language Switch -->
         <div class="dropdown dropdown-end">
           <div tabindex="0" role="button" class="btn btn-ghost btn-sm">
-            {{ $i18n.locale.toUpperCase() }}
+            {{ currentLocale.toUpperCase() }}
           </div>
           <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-24">
             <li><a @click="switchLocale('de')">DE</a></li>
@@ -49,19 +49,25 @@
 </template>
 
 <script setup lang="ts">
-const { $i18n } = useNuxtApp()
+const { locale, setLocale } = useI18n()
 
-function switchLocale(locale: string) {
-  $i18n.setLocale(locale)
+const currentLocale = computed(() => locale.value || 'de')
+
+function switchLocale(newLocale: string) {
+  setLocale(newLocale)
 }
 
 function setTheme(theme: string) {
-  document.documentElement.setAttribute('data-theme', theme)
-  localStorage.setItem('theme', theme)
+  if (typeof document !== 'undefined') {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('theme', theme)
+  }
 }
 
 onMounted(() => {
-  const savedTheme = localStorage.getItem('theme') || 'light'
-  setTheme(savedTheme)
+  if (typeof localStorage !== 'undefined') {
+    const savedTheme = localStorage.getItem('theme') || 'light'
+    setTheme(savedTheme)
+  }
 })
 </script>
