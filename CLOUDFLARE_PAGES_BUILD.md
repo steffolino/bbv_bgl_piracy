@@ -8,6 +8,7 @@ When setting up your Cloudflare Pages project, use these settings:
 - **Framework preset**: Static site  
 - **Build command**: `pnpm install && cd apps/frontend-public && pnpm run build`
 - **Build output directory**: `apps/frontend-public/.output/public`
+- **Deploy command**: `echo "Deploying to Cloudflare Pages"`
 - **Root directory**: `/` (leave as root)
 - **Node.js version**: `20`
 
