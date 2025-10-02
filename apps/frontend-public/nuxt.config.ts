@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   },
 
   app: {
-    baseURL: process.env.NODE_ENV === 'production' ? '/bbv_bgl_piracy/' : '/'
+    baseURL: '/'
   },
 
   i18n: {
