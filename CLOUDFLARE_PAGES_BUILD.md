@@ -5,8 +5,8 @@
 When setting up your Cloudflare Pages project, use these settings:
 
 ### Build Configuration
-- **Framework preset**: Static site
-- **Build command**: `cd apps/frontend-public && npm install && npm run build`
+- **Framework preset**: Static site  
+- **Build command**: `pnpm install && cd apps/frontend-public && pnpm run build`
 - **Build output directory**: `apps/frontend-public/.output/public`
 - **Root directory**: `/` (leave as root)
 - **Node.js version**: `20`
@@ -17,8 +17,8 @@ None required - the frontend uses the deployed API at:
 
 ### Alternative: Custom Build Script
 If the above doesn't work, you can use:
-- **Build command**: `chmod +x build-pages.sh && ./build-pages.sh`
-- **Build output directory**: `public`
+- **Build command**: `pnpm install && pnpm run build --filter=@bg/frontend-public`
+- **Build output directory**: `apps/frontend-public/.output/public`
 
 ## Expected Result
 Your basketball analytics will be available at:

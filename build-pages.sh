@@ -1,27 +1,19 @@
 #!/bin/bash
 
 # Cloudflare Pages Build Script for Frontend Public
-# Only build the frontend-public app
+# Build using pnpm for workspace support
 
 echo "🚀 Building Basketball Analytics Frontend for Cloudflare Pages"
 
-# Navigate to frontend-public directory
-cd apps/frontend-public
+# Install all workspace dependencies from root
+echo "📦 Installing workspace dependencies..."
+pnpm install
 
-# Install dependencies
-echo "📦 Installing dependencies..."
-npm install
-
-# Build the frontend
-echo "🏗️ Building frontend..."
-npm run build
+# Build only the frontend-public app using pnpm filter
+echo "🏗️ Building frontend with workspace support..."
+pnpm run build --filter=@bg/frontend-public
 
 echo "✅ Frontend build complete!"
 echo "📁 Output directory: apps/frontend-public/.output/public"
-
-# Copy output to root public directory for Pages
-echo "📋 Copying build output..."
-mkdir -p ../../public
-cp -r .output/public/* ../../public/
 
 echo "🎉 Ready for Cloudflare Pages deployment!"
