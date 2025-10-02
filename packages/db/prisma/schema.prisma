@@ -95,16 +95,103 @@ model Player {
   @@map("players")
 }
 
-model Team {
-  id      String   @id @default(cuid())
-  name    String
+model AdminUser {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  password_hash String
+  role          String   @default("club_admin") // club_admin, league_admin, super_admin
+  verein_id     String?
+  first_name    String?
+  last_name     String?
+  created_at    DateTime @default(now())
+  last_login    DateTime?
+  is_active     Boolean  @default(true)
 
-  homeMatches  Match[]         @relation("HomeMatches")
-  guestMatches Match[]         @relation("GuestMatches")
-  boxscoreRows BoxscoreRow[]
-  aliases_rel  Alias[]
+  verein        Verein?  @relation(fields: [verein_id], references: [id])
+  audit_logs    AuditLog[]
+
+  @@map("admin_users")
+}
+
+model Verein {
+  id                   String   @id @default(cuid())
+  name                 String   // "BG Litzendorf e.V."
+  short_name           String?  // "BG Litzendorf"
+  website              String?
+  email                String?
+  phone                String?
+  instagram            String?
+  facebook             String?
+  twitter              String?
+  address_street       String?
+  address_city         String?
+  address_postal_code  String?
+  address_state        String?  // "Bayern"
+  region               String?  // "Oberfranken"
+  country              String?  @default("Deutschland")
+  founded_year         Int?
+  status               String   @default("active") // active, inactive, merged
+  logo_url             String?
+  primary_color        String?  // Hex color
+  secondary_color      String?  // Hex color
+  description          String?  // Rich text
+  home_gym_name        String?
+  home_gym_address     String?
+  home_gym_capacity    Int?
+  home_gym_facilities  String?  // JSON array of facilities
+  admin_user_id        String?
+  created_at           DateTime @default(now())
+  updated_at           DateTime @updatedAt
+
+  teams                Team[]
+  admin_users          AdminUser[]
+  audit_logs           AuditLog[]
+
+  @@map("vereine")
+}
+
+model Team {
+  id                   String   @id @default(cuid())
+  name                 String
+  verein_id            String?
+  team_number          Int?     // 1, 2, 3 for "BG Litzendorf 2"
+  category             String?  // "Herren", "Damen", "U18", etc.
+  gender               String?  // "männlich", "weiblich", "mixed"
+  league_level         String?  // "Bezirksliga", "Kreisliga", etc.
+  jersey_home_color    String?  // Hex color
+  jersey_away_color    String?  // Hex color
+  home_court           String?  // Specific court if different
+  sponsors             String?  // JSON array of sponsors
+  is_active            Boolean  @default(true)
+  season_start         Int?     // Year when team was formed
+  season_end           Int?     // Year when team was dissolved (if applicable)
+  
+  verein               Verein?  @relation(fields: [verein_id], references: [id])
+  homeMatches          Match[]  @relation("HomeMatches")
+  guestMatches         Match[]  @relation("GuestMatches")
+  boxscoreRows         BoxscoreRow[]
+  aliases_rel          Alias[]
 
   @@map("teams")
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  admin_id    String
+  verein_id   String?
+  action      String   // "create", "update", "delete", "import"
+  entity_type String   // "verein", "team", "admin_user"
+  entity_id   String?
+  old_data    String?  // JSON of old values
+  new_data    String?  // JSON of new values
+  ip_address  String?
+  user_agent  String?
+  created_at  DateTime @default(now())
+
+  admin       AdminUser @relation(fields: [admin_id], references: [id])
+  verein      Verein?   @relation(fields: [verein_id], references: [id])
+
+  @@map("audit_logs")
 }
 
 model SeasonStat {

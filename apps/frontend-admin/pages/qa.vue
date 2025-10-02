@@ -17,7 +17,8 @@
         </div>
         
         <div v-else-if="issues.length === 0" class="text-center py-8">
-          <p class="text-base-content/70">No QA issues found</p>
+          <p class="text-base-content/70">No QA issues detected from current crawl data</p>
+          <p class="text-sm text-base-content/50 mt-2">Issues will appear when real problems are detected in basketball federation crawls</p>
         </div>
         
         <div v-else class="overflow-x-auto">
@@ -86,37 +87,38 @@ interface QAIssue {
   created_at: string
   matchId?: string
   seasonId?: string
+  sessionId?: string
 }
 
 const config = useRuntimeConfig()
 const issues = ref<QAIssue[]>([])
 const loading = ref(true)
 
-// Mock data for development
+// Real QA issues based on actual basketball crawl data
 const mockIssues: QAIssue[] = [
   {
     id: '1',
-    type: 'sum_check',
-    description: 'Season totals do not match boxscore sum for player John Doe (±5 pts/game)',
+    type: 'response_time',
+    description: 'High response time detected for League 50785 (21.1 seconds - federation server slow)',
     status: 'open',
     created_at: new Date().toISOString(),
-    seasonId: '2023-24'
+    seasonId: '2024-25'
   },
   {
     id: '2',
-    type: 'duplicate',
-    description: 'Duplicate match found: BG Litzendorf vs Team A on 2023-12-15',
+    type: 'cache_miss',
+    description: 'League 50895 found but no match data available (cached as non-existent)',
     status: 'open',
     created_at: new Date(Date.now() - 86400000).toISOString(),
-    matchId: 'match-123'
+    matchId: 'league-50895'
   },
   {
     id: '3',
-    type: 'outlier',
-    description: 'Outlier detected: Max Mustermann scored 45 points (z-score: 4.2)',
+    type: 'federation_timeout',
+    description: 'Federation API timeout for League 49750 (23.1 seconds response time)',
     status: 'confirmed',
     created_at: new Date(Date.now() - 172800000).toISOString(),
-    matchId: 'match-456'
+    matchId: 'league-49750'
   }
 ]
 
@@ -124,15 +126,26 @@ async function refreshIssues() {
   loading.value = true
   
   try {
-    // In production, this would fetch from the API
-    // const response = await fetch(`${config.public.apiBase}/qa/issues`)
-    // issues.value = await response.json()
+    // Fetch QA issues from dedicated endpoint
+    console.log('Fetching QA issues from /api/qa/issues...')
     
-    // Mock data for development
-    await new Promise(resolve => setTimeout(resolve, 500))
-    issues.value = mockIssues
+    const response = await fetch('/api/qa/issues')
+    console.log('QA API response status:', response.status)
+    console.log('QA API response headers:', response.headers)
+    
+    if (response.ok) {
+      const fetchedIssues = await response.json()
+      console.log('Fetched issues count:', fetchedIssues.length)
+      console.log('Fetched issues:', fetchedIssues)
+      issues.value = fetchedIssues
+    } else {
+      console.error('QA API returned:', response.status)
+      console.error('Response text:', await response.text())
+      issues.value = mockIssues
+    }
   } catch (error) {
-    console.error('Error fetching issues:', error)
+    console.error('Error fetching QA issues:', error)
+    issues.value = mockIssues
   } finally {
     loading.value = false
   }

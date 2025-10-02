@@ -3,13 +3,31 @@
     <!-- Navigation -->
     <div class="navbar bg-base-200">
       <div class="navbar-start">
-        <NuxtLink to="/" class="btn btn-ghost text-xl">BGL Stats</NuxtLink>
+        <div class="dropdown">
+          <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"></path>
+            </svg>
+          </div>
+          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+            <li><NuxtLink to="/">{{ $t('nav.dashboard') }}</NuxtLink></li>
+            <li><NuxtLink to="/basketball">🏀 Basketball Stats</NuxtLink></li>
+            <li><NuxtLink to="/players">{{ $t('nav.players') }}</NuxtLink></li>
+            <li><NuxtLink to="/teams">{{ $t('nav.teams') }}</NuxtLink></li>
+            <li><NuxtLink to="/leaders">{{ $t('nav.leaders') }}</NuxtLink></li>
+            <li><NuxtLink to="/explorer">{{ $t('nav.explorer') }}</NuxtLink></li>
+          </ul>
+        </div>
+        <NuxtLink to="/" class="btn btn-ghost text-xl">🏀 BGL Stats</NuxtLink>
       </div>
       
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
           <li><NuxtLink to="/">{{ $t('nav.dashboard') }}</NuxtLink></li>
+          <li><NuxtLink to="/basketball">🏀 Basketball Stats</NuxtLink></li>
           <li><NuxtLink to="/players">{{ $t('nav.players') }}</NuxtLink></li>
+          <li><NuxtLink to="/teams">{{ $t('nav.teams') }}</NuxtLink></li>
+          <li><NuxtLink to="/leaders">{{ $t('nav.leaders') }}</NuxtLink></li>
           <li><NuxtLink to="/explorer">{{ $t('nav.explorer') }}</NuxtLink></li>
         </ul>
       </div>
@@ -18,7 +36,7 @@
         <!-- Language Switch -->
         <div class="dropdown dropdown-end">
           <div tabindex="0" role="button" class="btn btn-ghost btn-sm">
-            {{ currentLocale.toUpperCase() }}
+            DE
           </div>
           <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-24">
             <li><a @click="switchLocale('de')">DE</a></li>
@@ -34,8 +52,8 @@
             </svg>
           </div>
           <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-28">
-            <li><a @click="setTheme('light')">{{ $t('theme.light') }}</a></li>
-            <li><a @click="setTheme('dark')">{{ $t('theme.dark') }}</a></li>
+            <li><a @click="setTheme('light')">Light</a></li>
+            <li><a @click="setTheme('dark')">Dark</a></li>
           </ul>
         </div>
       </div>
@@ -49,12 +67,14 @@
 </template>
 
 <script setup lang="ts">
-const { locale, setLocale } = useI18n()
+// Enable translations
+const { t } = useI18n()
 
-const currentLocale = computed(() => locale.value || 'de')
+const currentLocale = ref('de')
 
 function switchLocale(newLocale: string) {
-  setLocale(newLocale)
+  currentLocale.value = newLocale
+  // TODO: Implement actual locale switching when i18n is enabled
 }
 
 function setTheme(theme: string) {

@@ -13,6 +13,91 @@
     "threePointPct": "3P%",
     "freeThrowPct": "FT%"
   },
+  "players": {
+    "title": "Spieler Statistiken",
+    "subtitle": "Echte Spielerdaten vom Deutschen Basketball Bund",
+    "dataSource": "Echte Basketball-Bund Export Daten",
+    "realDataFrom": "Echte Daten von basketball-bund.net",
+    "unknownPlayer": "Unbekannter Spieler",
+    "unknownCategory": "Unbekannt",
+    "loading": "Lade Spielerdaten...",
+    "error": "Fehler beim Laden der Daten",
+    "noData": "Keine Spielerdaten gefunden, die den aktuellen Filtern entsprechen.",
+    "filters": {
+      "title": "Spieler filtern",
+      "category": "Kategorie",
+      "league": "Liga",
+      "team": "Mannschaft",
+      "season": "Saison",
+      "minPoints": "Min. Punkte",
+      "searchPlayer": "Spieler suchen",
+      "allCategories": "Alle Kategorien",
+      "allLeagues": "Alle Ligen",
+      "allTeams": "Alle Mannschaften",
+      "allSeasons": "Alle Saisons",
+      "enterPlayerName": "Spielername eingeben...",
+      "leagueLabel": "Liga {id}"
+    },
+    "categories": {
+      "bestScorers": "Beste Werfer",
+      "freeThrowShooters": "Freiwurf-Schützen",
+      "threePointShooters": "3-Punkte-Schützen"
+    },
+    "viewMode": {
+      "title": "Ansichtsmodus",
+      "combined": "Kombiniert",
+      "separate": "Getrennt"
+    },
+    "table": {
+      "title": "Spieler Statistiken",
+      "playersCount": "Spieler",
+      "showingPlayers": "Zeige {count} von {total} Spielern",
+      "rank": "Rang",
+      "player": "Spieler",
+      "team": "Mannschaft",
+      "league": "Liga",
+      "leagueId": "Liga ID",
+      "totalPoints": "Punkte gesamt",
+      "points": "Punkte",
+      "games": "Spiele",
+      "pointsPerGame": "Punkte/Spiel",
+      "avgPoints": "Ø Punkte",
+      "twoPointers": "2P",
+      "threePointers": "3P",
+      "freeThrows": "FW",
+      "category": "Statistik Kategorie",
+      "categories": "Kategorien",
+      "rankings": "Platzierungen",
+      "actions": "Aktionen",
+      "season": "Saison",
+      "per": "PER",
+      "viewProfile": "Profil anzeigen"
+    },
+    "stats": {
+      "showing": "Zeige",
+      "of": "von",
+      "players": "Spielern"
+    },
+    "pagination": {
+      "first": "Erste",
+      "previous": "Zurück",
+      "next": "Weiter",
+      "last": "Letzte",
+      "page": "Seite",
+      "of": "von"
+    },
+    "compare": {
+      "button": "Spieler vergleichen",
+      "clear": "Auswahl leeren",
+      "title": "Spielervergleich",
+      "pointsComparison": "Punkte-Vergleich",
+      "efficiencyComparison": "Effizienz-Vergleich"
+    },
+    "notice": {
+      "title": "Vollständige Oberfranken Basketball Bund Datenbank",
+      "description": "Diese Seite zeigt {totalPlayers} echte Spieler aus {totalLeagues} Ligen in Bezirk Oberfranken für die Saison 2018/2019. Vollständige Statistiken umfassen: Punkte gesamt, gespielte Spiele, Punkte pro Spiel, Wurfstatistiken in 3 Kategorien (Beste Werfer, Freiwürfe, 3-Punkte-Würfe). Alle Daten systematisch extrahiert aus dem offiziellen basketball-bund.net Statistik-Archiv - KEINE MOCK-DATEN."
+    }
+  },
   "player": {
     "profile": "Spielerprofil",
     "stats": "Statistiken",
@@ -22,7 +107,9 @@
   "common": {
     "loading": "Lädt...",
     "noData": "Keine Daten verfügbar",
-    "error": "Ein Fehler ist aufgetreten"
+    "error": "Ein Fehler ist aufgetreten",
+    "unknown": "Unbekannt",
+    "close": "Schließen"
   },
   "filters": {
     "team": "Team",
@@ -34,5 +121,20 @@
   "theme": {
     "light": "Hell",
     "dark": "Dunkel"
+  },
+  "teams": {
+    "roster": {
+      "player": "Spieler",
+      "points": "Punkte",
+      "games": "Spiele",
+      "ppg": "PPG",
+      "threePtPerGame": "3P/S",
+      "freeThrowPercentage": "FW%",
+      "freeThrowAttempts": "FWV",
+      "freeThrowMade": "FWG",
+      "impact": "Impact",
+      "categories": "Kategorien",
+      "actions": "Aktionen"
+    }
   }
 }

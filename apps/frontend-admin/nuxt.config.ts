@@ -4,8 +4,11 @@ export default defineNuxtConfig({
   ],
   
   runtimeConfig: {
+    githubClientSecret: process.env.GITHUB_CLIENT_SECRET,
     public: {
-      apiBase: process.env.PUBLIC_API_BASE || 'http://localhost:8082'
+      apiBase: process.env.PUBLIC_API_BASE || 'http://localhost:8082',
+      githubClientId: process.env.GITHUB_CLIENT_ID || 'your-github-client-id',
+      baseUrl: process.env.BASE_URL || 'http://localhost:8081'
     }
   },
 
@@ -17,9 +20,11 @@ export default defineNuxtConfig({
     config: {
       plugins: [require('daisyui')],
       daisyui: {
-        themes: ['light', 'dark'],
+        themes: ['silk', 'dark'],
         darkTheme: 'dark'
       }
     }
-  }
+  },
+  
+  compatibilityDate: '2025-09-29'
 })

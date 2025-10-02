@@ -1,0 +1,255 @@
+{
+  "nav": {
+    "players": "Spieler",
+    "dashboard": "Dashboard",
+    "explorer": "Explorer",
+    "teams": "Teams",
+    "leaders": "Leaders"
+  },
+  "dashboard": {
+    "title": "Basketball Statistiken Dashboard",
+    "subtitle": "Spieler-fokussierte Analysen für BGL Ligen",
+    "topPlayers": "Top Spieler",
+    "seasons": "Saisons",
+    "pointsPerGame": "Punkte pro Spiel",
+    "threePointPct": "3P%",
+    "freeThrowPct": "FT%"
+  },
+  "players": {
+    "title": "Spieler Statistiken",
+    "subtitle": "Echte Spielerdaten vom Deutschen Basketball Bund",
+    "dataSource": "Echte Basketball-Bund Export Daten",
+    "realDataFrom": "Echte Daten von basketball-bund.net",
+    "unknownPlayer": "Unbekannter Spieler",
+    "unknownCategory": "Unbekannt",
+    "loading": "Lade Spielerdaten...",
+    "error": "Fehler beim Laden der Daten",
+    "noData": "Keine Spielerdaten gefunden, die den aktuellen Filtern entsprechen.",
+    "filters": {
+      "title": "Spieler filtern",
+      "category": "Kategorie",
+      "league": "Liga",
+      "team": "Mannschaft",
+      "season": "Saison",
+      "minPoints": "Min. Punkte",
+      "searchPlayer": "Spieler suchen",
+      "allCategories": "Alle Kategorien",
+      "allLeagues": "Alle Ligen",
+      "allTeams": "Alle Mannschaften",
+      "allSeasons": "Alle Saisons",
+      "enterPlayerName": "Spielername eingeben...",
+      "leagueLabel": "Liga {id}"
+    },
+    "categories": {
+      "bestScorers": "Beste Werfer",
+      "freeThrowShooters": "Freiwurf-Schützen",
+      "threePointShooters": "3-Punkte-Schützen"
+    },
+    "viewMode": {
+      "title": "Ansichtsmodus",
+      "combined": "Kombiniert",
+      "separate": "Getrennt"
+    },
+    "table": {
+      "title": "Spieler Statistiken",
+      "playersCount": "Spieler",
+      "showingPlayers": "Zeige {count} von {total} Spielern",
+      "rank": "Rang",
+      "player": "Spieler",
+      "team": "Mannschaft",
+      "league": "Liga",
+      "leagueId": "Liga ID",
+      "totalPoints": "Punkte gesamt",
+      "points": "Punkte",
+      "games": "Spiele",
+      "pointsPerGame": "Punkte/Spiel",
+      "avgPoints": "Ø Punkte",
+      "twoPointers": "2P",
+      "threePointers": "3P",
+      "freeThrows": "FW",
+      "category": "Statistik Kategorie",
+      "categories": "Kategorien",
+      "rankings": "Platzierungen",
+      "actions": "Aktionen",
+      "season": "Saison",
+      "per": "PER",
+      "viewProfile": "Profil anzeigen"
+    },
+    "stats": {
+      "showing": "Zeige",
+      "of": "von",
+      "players": "Spielern"
+    },
+    "teams": {
+      "roster": {
+        "player": "Spieler",
+        "points": "Punkte",
+        "games": "Spiele",
+        "ppg": "PPG",
+        "threePtPerGame": "3P/S",
+        "freeThrowPercentage": "FW%",
+        "freeThrowAttempts": "FWV",
+        "freeThrowMade": "FWG",
+        "ftaPerGame": "FWV/S",
+        "ftmPerGame": "FWG/S",
+        "impact": "Impact",
+        "actions": "Aktionen",
+        "pointsPerGame": "Punkte/Spiel",
+        "avgPoints": "Ø Punkte",
+        "twoPointers": "2P",
+        "threePointers": "3P",
+        "freeThrows": "FW",
+        "viewProfile": "Profil anzeigen"
+      },
+      "seasonStats": {
+        "title": "Team Season Statistics",
+        "rosterSize": "Kaderstärke",
+        "totalPoints": "Gesamt Punkte",
+        "teamPPG": "Team PPG",
+        "gamesPlayed": "Gespielte Spiele",
+        "activePlayersDesc": "Aktive Spieler",
+        "seasonTotalDesc": "Saison gesamt",
+        "pointsPerGameDesc": "Punkte pro Spiel",
+        "combinedDesc": "Kombiniert",
+        "categoryLeaders": "Kategorie Leaders",
+        "bestScorer": "Beste Werfer",
+        "freeThrowShooter": "Freiwurf-Schütze",
+        "threePointShooter": "3-Punkte-Schütze",
+        "noDataAvailable": "Keine Daten verfügbar",
+        "categoryBreakdown": "Kategorie Aufschlüsselung",
+        "category": "Kategorie",
+        "players": "Spieler",
+        "avgPoints": "Ø Punkte",
+        "topPerformer": "Top Performer"
+      }
+    },
+    "pagination": {
+      "first": "Erste",
+      "previous": "Zurück",
+      "next": "Weiter",
+      "last": "Letzte",
+      "page": "Seite",
+      "of": "von"
+    },
+    "compare": {
+      "button": "Spieler vergleichen",
+      "clear": "Auswahl leeren",
+      "title": "Spielervergleich",
+      "pointsComparison": "Punkte-Vergleich",
+      "efficiencyComparison": "Effizienz-Vergleich"
+    },
+    "notice": {
+      "title": "Vollständige Oberfranken Basketball Bund Datenbank",
+      "description": "Diese Seite zeigt {totalPlayers} echte Spieler aus {totalLeagues} Ligen in Bezirk Oberfranken für die Saison 2018/2019. Vollständige Statistiken umfassen: Punkte gesamt, gespielte Spiele, Punkte pro Spiel, Wurfstatistiken in 3 Kategorien (Beste Werfer, Freiwürfe, 3-Punkte-Würfe). Alle Daten systematisch extrahiert aus dem offiziellen basketball-bund.net Statistik-Archiv - KEINE MOCK-DATEN."
+    }
+  },
+  "player": {
+    "profile": "Spielerprofil",
+    "stats": "Statistiken",
+    "career": "Karriere",
+    "season": "Saison {season}"
+  },
+  "common": {
+    "loading": "Lädt...",
+    "noData": "Keine Daten verfügbar",
+    "error": "Ein Fehler ist aufgetreten",
+    "unknown": "Unbekannt",
+    "close": "Schließen"
+  },
+  "filters": {
+    "team": "Team",
+    "bgLitzendorf": "BG Litzendorf",
+    "allTeams": "Alle Teams",
+    "season": "Saison",
+    "league": "Liga"
+  },
+  "leaders": {
+    "title": "League Leaders",
+    "subtitle": "Top performers across all statistical categories",
+    "filters": {
+      "league": "Liga",
+      "season": "Saison",
+      "category": "Kategorie",
+      "minGames": "Min. Spiele",
+      "allLeagues": "Alle Ligen",
+      "allSeasons": "Alle Saisons",
+      "allCategories": "Alle Kategorien"
+    },
+    "categoryLeaders": {
+      "scoringLeaders": "Scoring Leaders",
+      "freeThrowLeaders": "Free Throw Leaders",
+      "threePointLeaders": "Three Point Leaders",
+      "topPointScorers": "Top point scorers",
+      "bestFreeThrowShooters": "Best free throw shooters",
+      "top3PointScorers": "Top 3-point scorers",
+      "viewFullLeaderboard": "View Full Leaderboard"
+    },
+    "leaderboard": {
+      "title": "Complete Leaderboard",
+      "exportData": "Export Data",
+      "sortBy": "Sort:",
+      "rank": "Rang",
+      "player": "Spieler",
+      "team": "Team",
+      "liga": "Liga",
+      "season": "Saison",
+      "category": "Kategorie",
+      "pointsMade": "Punkte/Getroffen",
+      "gamesAttempts": "Spiele/Versuche",
+      "averagePercentage": "Durchschnitt/Prozent",
+      "actions": "Aktionen",
+      "profile": "Profil",
+      "share": "Teilen",
+      "byPoints": "Nach Punkten",
+      "byAverage": "Nach Durchschnitt",
+      "byGames": "Nach Spielen",
+      "byName": "Nach Name"
+    }
+  },
+  "playerProfile": {
+    "title": "Spielerprofil",
+    "quickStats": {
+      "totalPoints": "Gesamt Punkte",
+      "gamesPlayed": "Gespielte Spiele",
+      "pointsPerGame": "Punkte pro Spiel",
+      "categories": "Kategorien",
+      "regularSeason": "Reguläre Saison",
+      "average": "Durchschnitt",
+      "statisticalCategories": "Statistische Kategorien"
+    },
+    "categoryPerformance": {
+      "scoring": "Scoring",
+      "freeThrows": "Free Throws",
+      "threePointers": "Three Pointers",
+      "points": "Punkte:",
+      "games": "Spiele:",
+      "ppg": "PPG:",
+      "leagueRank": "Liga Rang:",
+      "ftMade": "FT Getroffen:",
+      "ftAttempts": "FT Versuche:",
+      "ftPercentage": "FT%:",
+      "threePtMade": "3PM:",
+      "threePtPerGame": "3P/Spiel:"
+    },
+    "seasonStats": {
+      "title": "Season Statistics Breakdown",
+      "category": "Kategorie",
+      "rank": "Rang",
+      "pointsMade": "Punkte/Getroffen",
+      "gamesAttempts": "Spiele/Versuche",
+      "averagePercentage": "Durchschnitt/Prozent",
+      "source": "Quelle"
+    },
+    "actions": {
+      "sharePlayer": "Spieler teilen",
+      "playerCard": "Spielerkarte",
+      "compare": "Vergleichen",
+      "viewTeam": "Team anzeigen",
+      "close": "Schließen"
+    }
+  },
+  "theme": {
+    "light": "Hell",
+    "dark": "Dunkel"
+  }
+}

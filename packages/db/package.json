@@ -13,11 +13,11 @@
     "clean": "rm -rf .turbo node_modules dist"
   },
   "dependencies": {
-    "@prisma/client": "^5.7.1",
     "@prisma/adapter-d1": "^5.7.1",
-    "prisma": "^5.7.1"
+    "@prisma/client": "^5.7.1"
   },
   "devDependencies": {
+    "prisma": "^6.16.3",
     "typescript": "^5.3.0"
   }
 }

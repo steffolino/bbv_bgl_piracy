@@ -79,7 +79,17 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
+.output
+.data
+.nitro
 dist
+
+# Nuxt.js cache
+.cache
+
+# Vite
+dist-ssr
+*.local
 
 # Gatsby files
 .cache/
@@ -144,3 +154,46 @@ temp/
 
 # Docker
 docker-compose.override.yml
+
+# Project specific files
+league_cache.db
+extended_league_cache.db
+basketball_analytics.db
+crawl_logs.db
+archive_results.db
+*.json.bak
+
+# Scrapy crawler outputs
+scrapy_crawlers/*.db
+scrapy_crawlers/*.json
+scrapy_crawlers/*.html
+scrapy_crawlers/debug_*.html
+scrapy_crawlers/discovery_*.html
+scrapy_crawlers/*_extracted.json
+scrapy_crawlers/*_complete_*.json
+scrapy_crawlers/comprehensive_player_*.json
+scrapy_crawlers/oberfranken_*.json
+scrapy_crawlers/historical_production_data.json
+!scrapy_crawlers/package.json
+
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# Basketball data files
+*.png
+*.card.png
+alexander_card.png
+
+# API and development files
+.dev.vars
+.wrangler

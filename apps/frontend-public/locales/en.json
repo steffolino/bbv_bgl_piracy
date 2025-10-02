@@ -1,7 +1,7 @@
 {
   "nav": {
     "players": "Players",
-    "dashboard": "Dashboard", 
+    "dashboard": "Dashboard",
     "explorer": "Explorer"
   },
   "dashboard": {
@@ -13,6 +13,91 @@
     "threePointPct": "3P%",
     "freeThrowPct": "FT%"
   },
+  "players": {
+    "title": "Player Statistics",
+    "subtitle": "Real player data from German Basketball Federation",
+    "dataSource": "Real Basketball-Bund Export Data",
+    "realDataFrom": "Real data from basketball-bund.net",
+    "unknownPlayer": "Unknown Player",
+    "unknownCategory": "Unknown",
+    "loading": "Loading player data...",
+    "error": "Error loading data",
+    "noData": "No player data found matching the current filters.",
+    "filters": {
+      "title": "Filter Players",
+      "category": "Category",
+      "league": "League",
+      "team": "Team",
+      "season": "Season",
+      "minPoints": "Min. Points",
+      "searchPlayer": "Search Player",
+      "allCategories": "All Categories",
+      "allLeagues": "All Leagues",
+      "allTeams": "All Teams",
+      "allSeasons": "All Seasons",
+      "enterPlayerName": "Enter player name...",
+      "leagueLabel": "League {id}"
+    },
+    "categories": {
+      "bestScorers": "Best Scorers",
+      "freeThrowShooters": "Free Throw Shooters",
+      "threePointShooters": "3-Point Shooters"
+    },
+    "viewMode": {
+      "title": "View Mode",
+      "combined": "Combined",
+      "separate": "Separate"
+    },
+    "table": {
+      "title": "Player Statistics",
+      "playersCount": "players",
+      "showingPlayers": "Showing {count} of {total} players",
+      "rank": "Rank",
+      "player": "Player",
+      "team": "Team",
+      "league": "League",
+      "leagueId": "League ID",
+      "totalPoints": "Total Points",
+      "points": "Points",
+      "games": "Games",
+      "pointsPerGame": "Points/Game",
+      "avgPoints": "Avg Points",
+      "twoPointers": "2P",
+      "threePointers": "3P",
+      "freeThrows": "FT",
+      "category": "Statistic Category",
+      "categories": "Categories",
+      "rankings": "Rankings",
+      "actions": "Actions",
+      "season": "Season",
+      "per": "PER",
+      "viewProfile": "View Profile"
+    },
+    "stats": {
+      "showing": "Showing",
+      "of": "of",
+      "players": "players"
+    },
+    "pagination": {
+      "first": "First",
+      "previous": "Previous",
+      "next": "Next",
+      "last": "Last",
+      "page": "Page",
+      "of": "of"
+    },
+    "compare": {
+      "button": "Compare Players",
+      "clear": "Clear Selection",
+      "title": "Player Comparison",
+      "pointsComparison": "Points Comparison",
+      "efficiencyComparison": "Efficiency Comparison"
+    },
+    "notice": {
+      "title": "Complete Oberfranken Basketball Federation Database",
+      "description": "This page displays {totalPlayers} real players from {totalLeagues} leagues in Bezirk Oberfranken for the 2018/2019 season. Complete statistics include: total points, games played, points per game, shooting statistics across 3 categories (Best Shooters, Free Throw Shooters, 3-Point Shooters). All data systematically extracted from official basketball-bund.net statistics archive - ZERO MOCK DATA."
+    }
+  },
   "player": {
     "profile": "Player Profile",
     "stats": "Statistics",
@@ -22,7 +107,9 @@
   "common": {
     "loading": "Loading...",
     "noData": "No data available",
-    "error": "An error occurred"
+    "error": "An error occurred",
+    "unknown": "Unknown",
+    "close": "Close"
   },
   "filters": {
     "team": "Team",
@@ -34,5 +121,20 @@
   "theme": {
     "light": "Light",
     "dark": "Dark"
+  },
+  "teams": {
+    "roster": {
+      "player": "Player",
+      "points": "Points",
+      "games": "Games",
+      "ppg": "PPG",
+      "threePtPerGame": "3PT/G",
+      "freeThrowPercentage": "FT%",
+      "freeThrowAttempts": "FTA",
+      "freeThrowMade": "FTM",
+      "impact": "Impact",
+      "categories": "Categories",
+      "actions": "Actions"
+    }
   }
 }

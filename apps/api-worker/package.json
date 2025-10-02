@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "build": "tsc && node dist/index.js",
+    "build": "tsc",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf .turbo node_modules dist"
   },

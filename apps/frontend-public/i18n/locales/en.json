@@ -1,0 +1,253 @@
+{
+  "nav": {
+    "players": "Players",
+    "dashboard": "Dashboard",
+    "explorer": "Explorer"
+  },
+  "dashboard": {
+    "title": "Basketball Stats Dashboard",
+    "subtitle": "Player-focused analytics for BGL leagues",
+    "topPlayers": "Top Players",
+    "seasons": "Seasons",
+    "pointsPerGame": "Points per Game",
+    "threePointPct": "3P%",
+    "freeThrowPct": "FT%"
+  },
+  "players": {
+    "title": "Player Statistics",
+    "subtitle": "Real player data from German Basketball Federation",
+    "dataSource": "Real Basketball Federation Export Data",
+    "realDataFrom": "Real data from basketball-bund.net",
+    "unknownPlayer": "Unknown Player",
+    "unknownCategory": "Unknown",
+    "loading": "Loading player data...",
+    "error": "Error loading data",
+    "noData": "No player data found matching current filters.",
+    "filters": {
+      "title": "Filter Players",
+      "category": "Category",
+      "league": "League",
+      "team": "Team",
+      "season": "Season",
+      "minPoints": "Min. Points",
+      "searchPlayer": "Search Players",
+      "allCategories": "All Categories",
+      "allLeagues": "All Leagues",
+      "allTeams": "All Teams",
+      "allSeasons": "All Seasons",
+      "enterPlayerName": "Enter player name...",
+      "leagueLabel": "League {id}"
+    },
+    "categories": {
+      "bestScorers": "Best Scorers",
+      "freeThrowShooters": "Free Throw Shooters",
+      "threePointShooters": "3-Point Shooters"
+    },
+    "viewMode": {
+      "title": "View Mode",
+      "combined": "Combined",
+      "separate": "Separate"
+    },
+    "table": {
+      "title": "Player Statistics",
+      "playersCount": "Players",
+      "showingPlayers": "Showing {count} of {total} players",
+      "rank": "Rank",
+      "player": "Player",
+      "team": "Team",
+      "league": "League",
+      "leagueId": "League ID",
+      "totalPoints": "Total Points",
+      "points": "Points",
+      "games": "Games",
+      "pointsPerGame": "Points/Game",
+      "avgPoints": "Avg Points",
+      "twoPointers": "2P",
+      "threePointers": "3P",
+      "freeThrows": "FT",
+      "category": "Statistics Category",
+      "categories": "Categories",
+      "rankings": "Rankings",
+      "actions": "Actions",
+      "season": "Season",
+      "per": "PER",
+      "viewProfile": "View Profile"
+    },
+    "stats": {
+      "showing": "Showing",
+      "of": "of",
+      "players": "players"
+    },
+    "pagination": {
+      "first": "First",
+      "previous": "Previous",
+      "next": "Next",
+      "last": "Last",
+      "page": "Page",
+      "of": "of"
+    },
+    "compare": {
+      "button": "Compare Players",
+      "clear": "Clear Selection",
+      "title": "Player Comparison",
+      "pointsComparison": "Points Comparison",
+      "efficiencyComparison": "Efficiency Comparison"
+    },
+    "notice": {
+      "title": "Complete Oberfranken Basketball Federation Database",
+      "description": "This page shows {totalPlayers} real players from {totalLeagues} leagues in Oberfranken district for 2018/2019 season. Complete statistics include: total points, games played, points per game, shooting statistics in 3 categories (Best Scorers, Free Throws, 3-Pointers). All data systematically extracted from official basketball-bund.net statistics archive - NO MOCK DATA."
+    }
+  },
+  "player": {
+    "profile": "Player Profile",
+    "stats": "Statistics",
+    "career": "Career",
+    "season": "Season {season}"
+  },
+  "common": {
+    "loading": "Loading...",
+    "noData": "No data available",
+    "error": "An error occurred",
+    "unknown": "Unknown",
+    "close": "Close"
+  },
+  "filters": {
+    "team": "Team",
+    "bgLitzendorf": "BG Litzendorf",
+    "allTeams": "All Teams",
+    "season": "Season",
+    "league": "League"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "teams": {
+    "roster": {
+      "player": "Player",
+      "points": "Points",
+      "games": "Games",
+      "ppg": "PPG",
+      "threePtPerGame": "3PT/G",
+      "freeThrowPercentage": "FT%",
+      "freeThrowAttempts": "FTA",
+      "freeThrowMade": "FTM",
+      "ftaPerGame": "FTA/G",
+      "ftmPerGame": "FTM/G",
+      "impact": "Impact",
+      "actions": "Actions",
+      "pointsPerGame": "Points/Game",
+      "avgPoints": "Avg Points",
+      "twoPointers": "2P",
+      "threePointers": "3P",
+      "freeThrows": "FT",
+      "viewProfile": "View Profile"
+    },
+    "seasonStats": {
+      "title": "Team Season Statistics",
+      "rosterSize": "Roster Size",
+      "totalPoints": "Total Points",
+      "teamPPG": "Team PPG",
+      "gamesPlayed": "Games Played",
+      "activePlayersDesc": "Active players",
+      "seasonTotalDesc": "Season total",
+      "pointsPerGameDesc": "Points per game",
+      "combinedDesc": "Combined",
+      "categoryLeaders": "Category Leaders",
+      "bestScorer": "Best Scorer",
+      "freeThrowShooter": "Free Throw Shooter",
+      "threePointShooter": "3-Point Shooter",
+      "noDataAvailable": "No data available",
+      "categoryBreakdown": "Category Breakdown",
+      "category": "Category",
+      "players": "Players",
+      "avgPoints": "Avg Points",
+      "topPerformer": "Top Performer"
+    }
+  },
+  "leaders": {
+    "title": "League Leaders",
+    "subtitle": "Top performers across all statistical categories",
+    "filters": {
+      "league": "League",
+      "season": "Season",
+      "category": "Category",
+      "minGames": "Min. Games",
+      "allLeagues": "All Leagues",
+      "allSeasons": "All Seasons",
+      "allCategories": "All Categories"
+    },
+    "categoryLeaders": {
+      "scoringLeaders": "Scoring Leaders",
+      "freeThrowLeaders": "Free Throw Leaders",
+      "threePointLeaders": "Three Point Leaders",
+      "topPointScorers": "Top point scorers",
+      "bestFreeThrowShooters": "Best free throw shooters",
+      "top3PointScorers": "Top 3-point scorers",
+      "viewFullLeaderboard": "View Full Leaderboard"
+    },
+    "leaderboard": {
+      "title": "Complete Leaderboard",
+      "exportData": "Export Data",
+      "sortBy": "Sort:",
+      "rank": "Rank",
+      "player": "Player",
+      "team": "Team",
+      "liga": "League",
+      "season": "Season",
+      "category": "Category",
+      "pointsMade": "Points/Made",
+      "gamesAttempts": "Games/Attempts",
+      "averagePercentage": "Average/Percentage",
+      "actions": "Actions",
+      "profile": "Profile",
+      "share": "Share",
+      "byPoints": "By Points",
+      "byAverage": "By Average",
+      "byGames": "By Games",
+      "byName": "By Name"
+    }
+  },
+  "playerProfile": {
+    "title": "Player Profile",
+    "quickStats": {
+      "totalPoints": "Total Points",
+      "gamesPlayed": "Games Played",
+      "pointsPerGame": "Points per Game",
+      "categories": "Categories",
+      "regularSeason": "Regular season",
+      "average": "Average",
+      "statisticalCategories": "Statistical categories"
+    },
+    "categoryPerformance": {
+      "scoring": "Scoring",
+      "freeThrows": "Free Throws",
+      "threePointers": "Three Pointers",
+      "points": "Points:",
+      "games": "Games:",
+      "ppg": "PPG:",
+      "leagueRank": "League Rank:",
+      "ftMade": "FT Made:",
+      "ftAttempts": "FT Attempts:",
+      "ftPercentage": "FT%:",
+      "threePtMade": "3PM:",
+      "threePtPerGame": "3P/Game:"
+    },
+    "seasonStats": {
+      "title": "Season Statistics Breakdown",
+      "category": "Category",
+      "rank": "Rank",
+      "pointsMade": "Points/Made",
+      "gamesAttempts": "Games/Attempts",
+      "averagePercentage": "Average/Percentage",
+      "source": "Source"
+    },
+    "actions": {
+      "sharePlayer": "Share Player",
+      "playerCard": "Player Card",
+      "compare": "Compare",
+      "viewTeam": "View Team",
+      "close": "Close"
+    }
+  }
+}

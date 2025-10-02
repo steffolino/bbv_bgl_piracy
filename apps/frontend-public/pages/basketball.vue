@@ -457,7 +457,7 @@
 // Basketball-Reference.com style frontend with ultra-modern design
 import { ref, computed, onMounted } from 'vue'
 
-const API_BASE = 'http://localhost:3001'
+const API_BASE = 'https://basketball-api.inequality.workers.dev'
 
 // Reactive data
 const overview = ref(null)

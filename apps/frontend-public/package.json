@@ -12,10 +12,11 @@
   },
   "dependencies": {
     "@bg/shared": "workspace:*",
+    "@nuxtjs/i18n": "^10.1.0",
     "@nuxtjs/tailwindcss": "^6.8.4",
-    "@nuxtjs/i18n": "^8.0.0",
-    "nuxt": "^3.9.0",
-    "daisyui": "^4.4.24"
+    "daisyui": "^4.4.24",
+    "html2canvas": "^1.4.1",
+    "nuxt": "^4.1.2"
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.2.0",

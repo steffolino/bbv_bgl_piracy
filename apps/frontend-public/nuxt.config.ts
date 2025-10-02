@@ -6,27 +6,38 @@ export default defineNuxtConfig({
   
   runtimeConfig: {
     public: {
-      apiBase: process.env.PUBLIC_API_BASE || 'http://localhost:8082'
+      apiBase: process.env.PUBLIC_API_BASE || 'https://basketball-api.inequality.workers.dev'
     }
+  },
+
+  // GitHub Pages configuration
+  target: 'static',
+  ssr: false,
+  nitro: {
+    prerender: {
+      routes: ['/basketball']
+    }
+  },
+
+  app: {
+    baseURL: process.env.NODE_ENV === 'production' ? '/bbv_bgl_piracy/' : '/'
   },
 
   i18n: {
     locales: [
       {
-        code: 'en',
-        name: 'English',
-        file: 'en.json'
-      },
-      {
-        code: 'de', 
+        code: 'de',
         name: 'Deutsch',
         file: 'de.json'
+      },
+      {
+        code: 'en',
+        name: 'English', 
+        file: 'en.json'
       }
     ],
-    lazy: true,
     langDir: 'locales/',
-    defaultLocale: 'de',
-    strategy: 'prefix_except_default'
+    defaultLocale: 'de'
   },
 
   css: ['~/assets/css/main.css'],
