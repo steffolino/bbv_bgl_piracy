@@ -82,49 +82,52 @@
               </NuxtLink>
             </div>
             
-            <!-- All-Time Leaders -->
+            <!-- All-Time Leaders (live only) -->
             <div class="glass-card bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
               <div class="text-6xl mb-4">🏆</div>
               <h3 class="text-2xl font-bold text-white mb-4">All-Time Leaders</h3>
               <div class="space-y-4">
                 <!-- Scoring Leader -->
-                <div class="flex items-center justify-between bg-white/5 rounded-xl p-3 border border-orange-500/20">
+                <div v-if="leaders.scoring" class="flex items-center justify-between bg-white/5 rounded-xl p-3 border border-orange-500/20">
                   <div>
                     <div class="text-sm text-orange-400 font-bold">SCORING</div>
-                    <div class="text-white font-semibold">Christoph Höning</div>
-                    <div class="text-xs text-gray-400">BG Litzendorf</div>
+                    <div class="text-white font-semibold">{{ leaders.scoring.name }}</div>
+                    <div class="text-xs text-gray-400">{{ leaders.scoring.team }}</div>
                   </div>
                   <div class="text-right">
-                    <div class="text-2xl font-bold text-orange-400">33.8</div>
-                    <div class="text-xs text-gray-400">PPG</div>
+                    <div class="text-2xl font-bold text-orange-400">{{ leaders.scoring.value }}</div>
+                    <div class="text-xs text-gray-400">{{ leaders.scoring.stat }}</div>
                   </div>
                 </div>
-                
+                <div v-else class="text-sm text-gray-400">Scoring leader data not available</div>
+
                 <!-- Rebounds Leader -->
-                <div class="flex items-center justify-between bg-white/5 rounded-xl p-3 border border-blue-500/20">
+                <div v-if="leaders.rebounds" class="flex items-center justify-between bg-white/5 rounded-xl p-3 border border-blue-500/20">
                   <div>
                     <div class="text-sm text-blue-400 font-bold">REBOUNDS</div>
-                    <div class="text-white font-semibold">Manuel Stumpf</div>
-                    <div class="text-xs text-gray-400">TSV Hirschaid</div>
+                    <div class="text-white font-semibold">{{ leaders.rebounds.name }}</div>
+                    <div class="text-xs text-gray-400">{{ leaders.rebounds.team }}</div>
                   </div>
                   <div class="text-right">
-                    <div class="text-2xl font-bold text-blue-400">8.2</div>
-                    <div class="text-xs text-gray-400">RPG</div>
+                    <div class="text-2xl font-bold text-blue-400">{{ leaders.rebounds.value }}</div>
+                    <div class="text-xs text-gray-400">{{ leaders.rebounds.stat }}</div>
                   </div>
                 </div>
-                
+                <div v-else class="text-sm text-gray-400">Rebound leader data not available</div>
+
                 <!-- Assists Leader -->
-                <div class="flex items-center justify-between bg-white/5 rounded-xl p-3 border border-yellow-500/20">
+                <div v-if="leaders.assists" class="flex items-center justify-between bg-white/5 rounded-xl p-3 border border-yellow-500/20">
                   <div>
                     <div class="text-sm text-yellow-400 font-bold">ASSISTS</div>
-                    <div class="text-white font-semibold">Active Leader</div>
-                    <div class="text-xs text-gray-400">German League</div>
+                    <div class="text-white font-semibold">{{ leaders.assists.name }}</div>
+                    <div class="text-xs text-gray-400">{{ leaders.assists.team }}</div>
                   </div>
                   <div class="text-right">
-                    <div class="text-2xl font-bold text-yellow-400">4.1</div>
-                    <div class="text-xs text-gray-400">APG</div>
+                    <div class="text-2xl font-bold text-yellow-400">{{ leaders.assists.value }}</div>
+                    <div class="text-xs text-gray-400">{{ leaders.assists.stat }}</div>
                   </div>
                 </div>
+                <div v-else class="text-sm text-gray-400">Assist leader data not available</div>
               </div>
               <NuxtLink to="/basketball" class="btn btn-outline btn-secondary w-full mt-4">
                 View All Leaders
@@ -302,37 +305,15 @@ const realDataStats = ref({
   completionRate: 96.8
 })
 
-// All-time leaders data
-const allTimeLeaders = ref({
-  scoring: {
-    name: 'Christoph Höning',
-    team: 'BG Litzendorf',
-    value: 33.8,
-    stat: 'PPG'
-  },
-  rebounds: {
-    name: 'Christoph Höning',
-    team: 'BG Litzendorf', 
-    value: 8.2,
-    stat: 'RPG'
-  },
-  assists: {
-    name: 'Manuel Stumpf',
-    team: 'TSV Hirschaid',
-    value: 4.1,
-    stat: 'APG'
-  }
+// Leaders object (populated from live API only)
+const leaders = ref({
+  scoring: null,
+  rebounds: null,
+  assists: null
 })
 
-// Featured team stats
-const featuredTeam = ref({
-  name: 'BG Litzendorf',
-  website: 'https://bg-litzendorf.de/',
-  players: 118,
-  teams: 3,
-  topScorer: 'Christoph Höning',
-  topPPG: 33.8
-})
+// Featured team placeholder - only used if API provides team metadata
+const featuredTeam = ref(null)
 
 // Load live leaders data from API
 const loadLeadersData = async () => {
@@ -340,39 +321,55 @@ const loadLeadersData = async () => {
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase || 'https://basketball-api.inequality.workers.dev'
     
-    // Get top scorer
-    const scoringResponse = await $fetch(`${apiBase}/api/players?limit=1&sortBy=points_total&order=desc`)
-    if (scoringResponse.players && scoringResponse.players.length > 0) {
-      const topScorer = scoringResponse.players[0]
-      allTimeLeaders.value.scoring = {
-        name: topScorer.name,
-        team: topScorer.currentTeam,
-        value: topScorer.currentSeason?.pointsPerGame || 33.8,
-        stat: 'PPG'
+    // Fetch top scorer (by points_total)
+    try {
+      const scoreResp = await $fetch(`${apiBase}/api/players?limit=1&sortBy=points_total&order=desc`)
+      if (scoreResp.players?.length) {
+        const p = scoreResp.players[0]
+        leaders.value.scoring = {
+          name: p.name,
+          team: p.currentTeam,
+          value: p.currentSeason?.pointsPerGame ?? null,
+          stat: 'PPG'
+        }
       }
-      
-      // Update rebounds if same player
-      if (topScorer.currentSeason?.reboundsPerGame) {
-        allTimeLeaders.value.rebounds = {
-          name: topScorer.name,
-          team: topScorer.currentTeam,
-          value: topScorer.currentSeason.reboundsPerGame,
+    } catch (e) {
+      console.warn('Could not fetch scoring leader:', e)
+    }
+
+    // Fetch top rebounder (by rebounds_total if available) - fallback: query many and pick top by reboundsPerGame
+    try {
+      const rebResp = await $fetch(`${apiBase}/api/players?limit=10&sortBy=rebounds_total&order=desc`)
+      if (rebResp.players?.length) {
+        const p = rebResp.players[0]
+        leaders.value.rebounds = {
+          name: p.name,
+          team: p.currentTeam,
+          value: p.currentSeason?.reboundsPerGame ?? null,
           stat: 'RPG'
         }
       }
-      
-      // Update assists if same player
-      if (topScorer.currentSeason?.assistsPerGame) {
-        allTimeLeaders.value.assists = {
-          name: topScorer.name,
-          team: topScorer.currentTeam,
-          value: topScorer.currentSeason.assistsPerGame,
+    } catch (e) {
+      console.warn('Could not fetch rebound leader:', e)
+    }
+
+    // Fetch top assist leader
+    try {
+      const astResp = await $fetch(`${apiBase}/api/players?limit=10&sortBy=assists_total&order=desc`)
+      if (astResp.players?.length) {
+        const p = astResp.players[0]
+        leaders.value.assists = {
+          name: p.name,
+          team: p.currentTeam,
+          value: p.currentSeason?.assistsPerGame ?? null,
           stat: 'APG'
         }
       }
+    } catch (e) {
+      console.warn('Could not fetch assists leader:', e)
     }
-    
-    console.log('🏆 All-time leaders loaded:', allTimeLeaders.value)
+
+    console.log('🏆 Leaders loaded:', leaders.value)
   } catch (error) {
     console.warn('⚠️ Could not load live leaders data, using defaults:', error)
   }
