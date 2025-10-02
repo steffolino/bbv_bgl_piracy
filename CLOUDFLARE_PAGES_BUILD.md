@@ -13,8 +13,17 @@ When setting up your Cloudflare Pages project, use these settings:
 - **Node.js version**: `20`
 
 ### Environment Variables
-None required - the frontend uses the deployed API at:
-`https://basketball-api.inequality.workers.dev`
+Set these in your Cloudflare Pages dashboard under "Settings" > "Environment variables":
+
+**For Basketball Frontend (frontend-public):**
+- No environment variables required (uses deployed API automatically)
+
+**For Admin Dashboard (frontend-admin):**
+- `DEMO_USERNAME`: Admin login username (default: admin)
+- `DEMO_PASSWORD`: Admin login password (default: password)
+- `PUBLIC_API_BASE`: API endpoint (default: https://basketball-api.inequality.workers.dev)
+- `GITHUB_CLIENT_ID`: GitHub OAuth app ID (optional)
+- `GITHUB_CLIENT_SECRET`: GitHub OAuth secret (optional)
 
 ### Alternative: Custom Build Script
 If the above doesn't work, you can use:

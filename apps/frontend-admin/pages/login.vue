@@ -68,7 +68,7 @@
         
         <div class="text-center mt-4">
           <p class="text-xs text-base-content/50">
-            Demo: admin / password
+            Demo credentials set via environment variables
           </p>
           <p class="text-xs text-base-content/50 mt-1">
             GitHub login requires OAuth app setup
@@ -108,12 +108,16 @@ async function handleDemoLogin() {
   error.value = ''
   
   try {
-    // Simple demo authentication (keeping for testing)
-    if (username.value === 'admin' && password.value === 'password') {
+    const config = useRuntimeConfig()
+    const validUsername = config.public.demoUsername || 'admin'
+    const validPassword = config.public.demoPassword || 'password'
+    
+    // Environment-based demo authentication
+    if (username.value === validUsername && password.value === validPassword) {
       const sessionData = {
         user: {
           id: 1,
-          username: 'admin',
+          username: validUsername,
           name: 'Demo Admin',
           email: 'admin@demo.com',
           avatar: 'https://github.com/github.png'
