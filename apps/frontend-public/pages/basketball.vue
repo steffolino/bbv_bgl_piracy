@@ -456,8 +456,8 @@
 <script setup>
 // Basketball-Reference.com style frontend with ultra-modern design
 import { ref, computed, onMounted } from 'vue'
-
-const API_BASE = 'https://basketball-api.inequality.workers.dev'
+const config = useRuntimeConfig()
+const API_BASE = config.public.apiBase || 'https://basketball-api.inequality.workers.dev'
 
 // Reactive data
 const overview = ref(null)

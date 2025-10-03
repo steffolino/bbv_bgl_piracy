@@ -197,26 +197,32 @@ useHead({
 })
 
 // Data fetching (replace with real API)
-/*
-const { data: playerData, pending, error } = await useFetch(`/api/players/${playerId}`, {
-  key: `player-${playerId}`,
-  transform: (data: any) => {
-    // Transform API response to match interface
-    return {
-      id: data.id,
-      name: data.name,
-      currentTeam: data.current_team,
-      teamId: data.team_id,
-      teamLogo: data.team_logo,
-      league: data.league,
-      teamRecord: data.team_record,
-      position: data.position,
-      jerseyNumber: data.jersey_number,
-      photo: data.photo
+// Try fetching real player data from API, otherwise use mock above
+try {
+  const config = useRuntimeConfig()
+  const { data, pending: p, error: e } = await useFetch(`${config.public.apiBase}/api/players/${playerId}`, {
+    key: `player-${playerId}`
+  })
+
+  if (data && data.value) {
+    // Map API shape to local interface (best effort)
+    const d: any = data.value
+    playerData.value = {
+      id: d.id || playerData.value.id,
+      name: d.name || d.full_name || playerData.value.name,
+      currentTeam: d.current_team || d.team || playerData.value.currentTeam,
+      teamId: d.team_id || playerData.value.teamId,
+      teamLogo: d.team_logo || playerData.value.teamLogo,
+      league: d.league || playerData.value.league,
+      teamRecord: d.team_record || playerData.value.teamRecord,
+      position: d.position || playerData.value.position,
+      jerseyNumber: d.jersey_number || playerData.value.jerseyNumber,
+      photo: d.photo || playerData.value.photo
     }
   }
-})
-*/
+} catch (e) {
+  console.warn('Live API player fetch failed, using mock data:', e)
+}
 </script>
 
 <style scoped>

@@ -81,8 +81,8 @@
               </ul>
             </div>
           </div>
-          <div class="mt-4">
-            <a :href="`http://localhost:5001/api/debug/teams?league_id=${teamDetails?.league_id}&season_id=${teamDetails?.season_id}`" 
+            <div class="mt-4">
+            <a :href="`${config.public.apiBase}/api/debug/teams?league_id=${teamDetails?.league_id}&season_id=${teamDetails?.season_id}`" 
                target="_blank" class="btn btn-sm btn-outline">
               🔍 Debug: Verfügbare Teams anzeigen
             </a>
@@ -456,12 +456,12 @@
             
             <div class="bg-base-200 p-4 rounded-lg">
               <p class="text-sm mb-2"><strong>Debugging-Hilfe:</strong></p>
-              <a :href="`http://localhost:5001/api/debug/teams?league_id=${teamDetails?.league_id}&season_id=${teamDetails?.season_id}`" 
+              <a :href="`${config.public.apiBase}/api/debug/teams?league_id=${teamDetails?.league_id}&season_id=${teamDetails?.season_id}`" 
                  target="_blank" class="btn btn-xs btn-primary mb-2">
                 🔍 Alle Teams in Liga {{ teamDetails?.league_id }} ({{ teamDetails?.season_id }})
               </a>
               <br>
-              <a href="http://localhost:5001/api/debug/teams" target="_blank" class="btn btn-xs btn-secondary">
+              <a :href="`${config.public.apiBase}/api/debug/teams`" target="_blank" class="btn btn-xs btn-secondary">
                 🏀 Alle Litzendorf-Varianten anzeigen
               </a>
             </div>
@@ -539,6 +539,8 @@ import { ref, computed, onMounted } from 'vue'
 
 // Enable translations
 const { t } = useI18n()
+// Runtime config (public.apiBase should point to the deployed API)
+const config = useRuntimeConfig()
 
 const props = defineProps({
   teamName: String,
@@ -824,7 +826,7 @@ const loadTeamDetails = async () => {
     
     console.log(`🔍 Loading team data for: ${teamName}, League: ${leagueId}, Season: ${seasonId}`)
     
-    const apiUrl = `http://localhost:5001/api/teams/${encodeURIComponent(teamName)}?league_id=${leagueId}&season_id=${seasonId}`
+  const apiUrl = `${config.public.apiBase}/api/teams/${encodeURIComponent(teamName)}?league_id=${leagueId}&season_id=${seasonId}`
     console.log('📡 API URL:', apiUrl)
     
     const response = await fetch(apiUrl)
@@ -873,7 +875,7 @@ const loadLeagueStandings = async () => {
     
     console.log(`🏆 Loading league standings for League: ${leagueId}, Season: ${seasonId}`)
     
-    const apiUrl = `http://localhost:5001/api/leagues/${leagueId}/standings?season_id=${seasonId}`
+  const apiUrl = `${config.public.apiBase}/api/leagues/${leagueId}/standings?season_id=${seasonId}`
     console.log('📡 League API URL:', apiUrl)
     
     const response = await fetch(apiUrl)

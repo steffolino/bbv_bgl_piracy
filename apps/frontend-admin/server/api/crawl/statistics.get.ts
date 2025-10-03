@@ -1,7 +1,9 @@
 export default defineEventHandler(async (event) => {
   try {
-    // Proxy request to Python Flask API bridge
-    const response = await fetch('http://localhost:5001/api/crawl/statistics')
+  // Proxy request to Python Flask API bridge
+  const config = useRuntimeConfig()
+  const crawlBase = config.public.crawlApiBase || 'http://localhost:5001'
+  const response = await fetch(`${crawlBase}/api/crawl/statistics`)
     
     if (!response.ok) {
       throw new Error(`Flask API returned ${response.status}`)

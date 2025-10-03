@@ -35,7 +35,8 @@ def scrape_missing_years():
     base_url = 'https://www.basketball-bund.net'
     
     # Connect to database
-    conn = sqlite3.connect('../league_cache.db')
+    # Use project root path for DB, matching main workflow
+    conn = sqlite3.connect('league_cache.db')
     cursor = conn.cursor()
 
     print('📊 Current database status:')
@@ -137,15 +138,26 @@ def scrape_missing_years():
                                 rebounds = stats.get('rebounds', 0)
                                 assists = stats.get('assists', 0)
                                 
-                                # Insert into database
+                                # Build unique ID (player+team+season)
+                                import hashlib
+                                raw_id = f"{player_name}|{team_name}|{season_name}"
+                                id_hash = hashlib.md5(raw_id.encode('utf-8')).hexdigest()
+
+                                # Use only columns that exist and are relevant
                                 cursor.execute('''
                                     INSERT OR REPLACE INTO current_player_stats 
-                                    (player_name, team_name, season, games, minutes, points, rebounds, assists)
-                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                                ''', (player_name, team_name, season_name, games, minutes, points, rebounds, assists))
-                                
+                                    (id, player_name, team_name, games_played, points_total, points_avg, season)
+                                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                                ''', (
+                                    id_hash,
+                                    player_name,
+                                    team_name,
+                                    games,
+                                    points,
+                                    float(points) / games if games else 0.0,
+                                    season_name
+                                ))
                                 season_players += 1
-                                
                             except Exception as e:
                                 continue
                     

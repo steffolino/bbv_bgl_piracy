@@ -2,18 +2,18 @@ name: Deploy Worker
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
-      - 'apps/api-worker/**'
-      - 'packages/db/**'
-      - 'packages/shared/**'
-      - '.github/workflows/deploy-worker.yml'
+      - "apps/api-worker/**"
+      - "packages/db/**"
+      - "packages/shared/**"
+      - ".github/workflows/deploy-worker.yml"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     if: github.repository_owner == 'steffolino'
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,8 +26,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'pnpm'
+          node-version: "18"
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -35,10 +35,34 @@ jobs:
       - name: Generate Prisma client
         run: pnpm run db:generate
 
+      - name: Apply Prisma migrations (optional)
+        if: secrets.DATABASE_URL != ''
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: pnpm run db:migrate
+
+      - name: Apply D1 SQL migrations (best-effort)
+        if: secrets.D1_DATABASE_ID != ''
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          # Apply any D1 migrations present in ./prisma/migrations using wrangler
+          # Note: requires wrangler available in the environment (the action provides it)
+          if [ -d "prisma/migrations" ]; then
+            echo "Applying D1 migrations to database: bglpiracydb"
+            wrangler d1 migrations apply --database bglpiracydb
+          else
+            echo "No D1 SQL migrations directory found; skipping."
+          fi
+
       - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
+        env:
+          # Set this GitHub secret to the D1 database id (or UUID) you created in Cloudflare
+          D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: 'apps/api-worker'
+          workingDirectory: "apps/api-worker"
           command: deploy

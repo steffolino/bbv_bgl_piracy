@@ -1,3 +1,44 @@
+# 🛠️ Troubleshooting: Oberfranken League Crawling Issue (2025)
+
+# 📋 Crawling Findings & Best Practices
+
+## Step 1: League Discovery
+- Always parse all tables with the relevant class (e.g., `sportView`) to avoid missing data.
+- Use robust selectors and check for multiple tables per page.
+- Handle pagination by following `startrow` links until all pages are processed.
+- Save results in a structured format (e.g., JSON) for downstream use.
+
+## Step 2: Player Data Extraction
+- For each discovered league, use the official endpoints (e.g., `statTeamArchiv`) with correct parameters.
+- Parse all tables and rows, as player data may be distributed across multiple tables.
+- Use session cookies and browser-like headers to avoid access issues.
+- Add short delays between requests to avoid rate limiting or blocking.
+- Validate extracted data and log progress for troubleshooting.
+
+## General Best Practices
+- Always verify the HTML structure for each season and endpoint, as it may change over time.
+- Log all requests and responses for debugging and reproducibility.
+- Modularize crawling scripts for easy updates and maintenance.
+- Document all issues and solutions for future reference.
+
+## Problem
+When crawling Oberfranken leagues for all seasons, the script sometimes found 0 leagues, even though the HTML response contained valid league tables and data.
+
+## Cause
+- The original script only parsed the first table with class `sportView` per page.
+- In reality, the HTML response can contain multiple `sportView` tables, each with league rows.
+- As a result, some or all league rows were missed, especially for seasons/pages with more than one table.
+
+## Solution
+- The script was updated to iterate over all tables with class `sportView` on each page.
+- All rows in every table are now parsed, ensuring all Oberfranken leagues are discovered and extracted.
+- This change fixed the issue and produced complete results for every season.
+
+## Verification
+- After the fix, the script found the expected number of Oberfranken leagues for every season (2003–2024).
+- Results were saved to `oberfranken_leagues_2003_2024.json`.
+
+---
 # 🏀 ADMIN VEREINE MANAGEMENT SYSTEM - IMPLEMENTATION COMPLETE! 🏀
 
 ## 🎉 WHAT WE'VE BUILT - A COMPREHENSIVE ADMIN SYSTEM

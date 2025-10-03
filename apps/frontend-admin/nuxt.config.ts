@@ -6,9 +6,11 @@ export default defineNuxtConfig({
   runtimeConfig: {
     githubClientSecret: process.env.GITHUB_CLIENT_SECRET,
     public: {
-      apiBase: process.env.PUBLIC_API_BASE || 'http://localhost:8082',
+      // In production, default to the deployed Cloudflare Worker; in dev override with PUBLIC_API_BASE
+      apiBase: process.env.PUBLIC_API_BASE || 'https://basketball-api.inequality.workers.dev',
       githubClientId: process.env.GITHUB_CLIENT_ID || 'your-github-client-id',
-      baseUrl: process.env.BASE_URL || 'http://localhost:8081',
+      // Use '/' as a safer default for baseUrl in hosted environments; override with BASE_URL for local dev
+      baseUrl: process.env.BASE_URL || '/',
       demoUsername: process.env.DEMO_USERNAME || 'admin',
       demoPassword: process.env.DEMO_PASSWORD || 'password'
     }

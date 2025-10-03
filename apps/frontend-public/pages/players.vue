@@ -504,6 +504,7 @@
 
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
+const config = useRuntimeConfig()
 
 // Use Nuxt's i18n composable
 // const { t } = useI18n()
@@ -687,21 +688,34 @@ const currentPage = ref(1)
 const playersPerPage = 50
 const viewMode = ref('combined') // 'combined' or 'separate'
 
-// Load player data
+// Load player data (try live API, fallback to local JSON)
 const loadPlayerData = async () => {
   try {
     loading.value = true
     error.value = null
-    
-    const response = await fetch('/real_players_extracted.json')
-    if (!response.ok) {
-      throw new Error('Failed to load player data')
+
+    // Try live API
+    try {
+      const params = new URLSearchParams({ limit: '20000' })
+      const resp = await fetch(`${config.public.apiBase}/api/players?${params.toString()}`)
+      if (resp.ok) {
+        const data = await resp.json()
+        playersData.value = data
+        totalPlayers.value = data.players?.length || 0
+        return
+      }
+      console.warn('Live API returned non-OK status, falling back to local data')
+    } catch (e) {
+      console.warn('Live API unavailable, falling back to local JSON:', e)
     }
-    
+
+    // Fallback to local JSON
+    const response = await fetch('/real_players_extracted.json')
+    if (!response.ok) throw new Error('Failed to load fallback player data')
     const data = await response.json()
     playersData.value = data
     totalPlayers.value = data.players?.length || 0
-    
+
   } catch (err) {
     console.error('Error loading player data:', err)
     error.value = err.message

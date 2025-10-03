@@ -1,0 +1,239 @@
+{
+  "seasons_crawled": [
+    {
+      "season": "2003",
+      "leagues_found": 10,
+      "leagues": [
+        {
+          "id": "263",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "261",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "262",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "245",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "256",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "248",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "249",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "697",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "250",
+          "name": "Bezirksklasse"
+        },
+        {
+          "id": "934",
+          "name": "Kreisliga"
+        }
+      ]
+    },
+    {
+      "season": "2004",
+      "leagues_found": 10,
+      "leagues": [
+        {
+          "id": "263",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "261",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "262",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "245",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "256",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "248",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "697",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "250",
+          "name": "Bezirksklasse"
+        },
+        {
+          "id": "934",
+          "name": "Kreisliga"
+        },
+        {
+          "id": "251",
+          "name": "Kreisliga"
+        }
+      ]
+    },
+    {
+      "season": "2005",
+      "leagues_found": 10,
+      "leagues": [
+        {
+          "id": "263",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "261",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "262",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "1701",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "256",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "248",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "697",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "250",
+          "name": "Bezirksklasse"
+        },
+        {
+          "id": "934",
+          "name": "Kreisliga"
+        },
+        {
+          "id": "251",
+          "name": "Kreisliga"
+        }
+      ]
+    },
+    {
+      "season": "2006",
+      "leagues_found": 10,
+      "leagues": [
+        {
+          "id": "263",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "261",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "1701",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "256",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "248",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "2659",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "697",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "250",
+          "name": "Bezirksklasse"
+        },
+        {
+          "id": "934",
+          "name": "Kreisliga"
+        },
+        {
+          "id": "251",
+          "name": "Kreisliga"
+        }
+      ]
+    },
+    {
+      "season": "2007",
+      "leagues_found": 10,
+      "leagues": [
+        {
+          "id": "263",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "261",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "262",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "1701",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "256",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "248",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "2659",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "697",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "3870",
+          "name": "Bezirksliga"
+        },
+        {
+          "id": "250",
+          "name": "Bezirksklasse"
+        }
+      ]
+    }
+  ],
+  "total_leagues": 50,
+  "total_players": 3249,
+  "errors": [],
+  "crawl_start": "2025-10-03T08:51:55.680146",
+  "crawl_end": "2025-10-03T08:52:39.862295"
+}

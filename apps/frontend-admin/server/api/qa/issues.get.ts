@@ -1,9 +1,11 @@
 export default defineEventHandler(async (event) => {
   try {
     // Fetch real crawl data to generate dynamic QA issues
+    const config = useRuntimeConfig()
+    const crawlBase = config.public.crawlApiBase || 'http://localhost:5001'
     const [sessionsResponse, logsResponse] = await Promise.all([
-      fetch('http://localhost:5001/api/crawl/sessions').catch(() => null),
-      fetch('http://localhost:5001/api/crawl/logs/search?limit=200').catch(() => null)
+      fetch(`${crawlBase}/api/crawl/sessions`).catch(() => null),
+      fetch(`${crawlBase}/api/crawl/logs/search?limit=200`).catch(() => null)
     ])
     
     const realIssues: any[] = []

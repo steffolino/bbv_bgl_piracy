@@ -261,6 +261,9 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 
+// Runtime config
+const config = useRuntimeConfig()
+
 // Enable translations
 const { t } = useI18n()
 
@@ -276,17 +279,33 @@ const sortOrder = ref('desc')
 const currentPage = ref(1)
 const itemsPerPage = 50
 
-// Load players data
+// Load players data (try live API first, fallback to local JSON)
 const loadPlayersData = async () => {
   try {
     loading.value = true
+
+    // Try live API
+    try {
+      const params = new URLSearchParams({ limit: '20000' })
+      const resp = await fetch(`${config.public.apiBase}/api/players?${params.toString()}`)
+      if (resp.ok) {
+        const data = await resp.json()
+        playersData.value = data.players || []
+        console.log('✅ Loaded', playersData.value.length, 'player records from live API')
+        return
+      }
+      console.warn('Live API returned non-OK status, falling back to local data')
+    } catch (e) {
+      console.warn('Live API unavailable, falling back to local JSON:', e)
+    }
+
+    // Fallback
     const response = await fetch('/real_players_extracted.json')
     if (!response.ok) throw new Error('Failed to load data')
-    
     const data = await response.json()
     playersData.value = data.players || []
-    
-    console.log('✅ Loaded', playersData.value.length, 'player records for leaders board')
+    console.log('✅ Loaded', playersData.value.length, 'player records from local JSON')
+
   } catch (error) {
     console.error('❌ Error loading players data:', error)
     playersData.value = []

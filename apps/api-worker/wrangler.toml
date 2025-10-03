@@ -8,3 +8,12 @@ vars = { ENVIRONMENT = "development" }
 
 [env.production] 
 vars = { ENVIRONMENT = "production" }
+
+## Bind a Cloudflare D1 database for production. Replace `database_id` with the
+## actual D1 database id (UUID) from your Cloudflare account or set the
+## `D1_DATABASE_ID` secret in GitHub Actions. The binding will be available in
+## the Worker as `env.DB` (use `getPrisma(env.DB)` in your worker code).
+[[d1_databases]]
+binding = "DB"
+database_name = "bglpiracydb"
+database_id = "4e860b6a-bbfa-4e2c-8338-4c5f2c2d5416"
