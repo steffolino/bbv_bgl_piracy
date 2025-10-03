@@ -230,7 +230,7 @@
                     @change="togglePlayerSelection(player)"
                   >
                 </td>
-                <td class="sticky left-0 bg-base-100 z-10">
+                <td class="sticky left-0 bg-base-200 z-10">
                   <div class="flex items-center gap-2">
                     <div class="avatar placeholder">
                       <div class="bg-neutral text-neutral-content rounded-full w-6 h-6">
@@ -498,12 +498,13 @@
     />
     
     <!-- Card Modal -->
-    <CardModal v-if="selectedPlayer" ref="cardModalRef" :player="selectedPlayer" />
+  <EnhancedPlayerProfile v-if="selectedPlayer" :player="selectedPlayer" :allPlayerData="playerCareerStats" @close="closePlayerProfile" />
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
+import EnhancedPlayerProfile from '~/components/EnhancedPlayerProfile.vue'
 
 // Use Nuxt's i18n composable
 // const { t } = useI18n()
@@ -581,8 +582,12 @@ const playerProfileModal = ref(null)
 const comparisonModal = ref(null)
 const selectedPlayersForComparison = ref([])
 
+// Pagination state
+const currentPage = ref(1)
+const playersPerPage = ref(25) // Default page size, can be changed
+
 // Modal refs
-const cardModalRef = ref(null)
+// Removed cardModalRef, not needed for EnhancedPlayerProfile
 
 // Export and Custom Stats Modals
 const showExportModal = ref(false)
@@ -683,8 +688,14 @@ const filters = ref({
 // Sorting and Pagination
 const sortBy = ref('totalPoints')
 const sortOrder = ref('desc')
-const currentPage = ref(1)
-const playersPerPage = 50
+const totalPages = computed(() => {
+  return Math.max(1, Math.ceil(sortedPlayers.value.length / playersPerPage.value))
+})
+const paginatedPlayers = computed(() => {
+  const start = (currentPage.value - 1) * playersPerPage.value
+  const end = start + playersPerPage.value
+  return sortedPlayers.value.slice(start, end)
+})
 const viewMode = ref('combined') // 'combined' or 'separate'
 
 // Load player data
@@ -903,16 +914,6 @@ const sortedPlayers = computed(() => {
   return sorted
 })
 
-const totalPages = computed(() => {
-  return Math.ceil(sortedPlayers.value.length / playersPerPage)
-})
-
-const paginatedPlayers = computed(() => {
-  const start = (currentPage.value - 1) * playersPerPage
-  const end = start + playersPerPage
-  return sortedPlayers.value.slice(start, end)
-})
-
 const playerCareerStats = computed(() => {
   if (!selectedPlayer.value) return []
   
@@ -1108,10 +1109,11 @@ const sortByColumn = (column) => {
     sortBy.value = column
     sortOrder.value = 'desc'
   }
+  currentPage.value = 1 // Reset page on sort change
 }
 
 const updateFilters = () => {
-  currentPage.value = 1
+  currentPage.value = 1 // Reset page on filter change
 }
 
 const viewPlayerProfile = (player) => {
@@ -1183,17 +1185,10 @@ const sharePlayer = (player) => {
 // Card generation functions
 const generatePlayerCard = (player) => {
   selectedPlayer.value = player
-  nextTick(() => {
-    cardModalRef.value?.showModal()
-  })
 }
 
 const generateSelectedPlayerCard = () => {
-  if (selectedPlayer.value) {
-    nextTick(() => {
-      cardModalRef.value?.showModal()
-    })
-  }
+  // No longer needed, handled by selectedPlayer
 }
 
 const closePlayerProfile = () => {

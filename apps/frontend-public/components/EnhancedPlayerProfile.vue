@@ -17,35 +17,47 @@
                 <div class="badge badge-secondary">Liga {{ player.liga_id }}</div>
                 <div class="badge badge-accent">{{ player.season_id }}/{{ player.season_id + 1 }}</div>
               </div>
+              <div class="flex gap-2 mt-2 items-center">
+                <label class="text-sm font-bold">#</label>
+                <input type="number" v-model="editableNumber" min="0" max="99" class="input input-bordered input-xs w-16" />
+                <label class="text-sm font-bold">Position:</label>
+                <select v-model="editablePosition" class="select select-xs w-32">
+                  <option value="GUARD">GUARD</option>
+                  <option value="FORWARD">FORWARD</option>
+                  <option value="CENTER">CENTER</option>
+                </select>
+              </div>
             </div>
           </div>
           <button @click="$emit('close')" class="btn btn-sm btn-circle btn-ghost">✕</button>
         </div>
 
         <!-- Quick Stats Overview -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div class="stat bg-base-200 rounded-lg">
-            <div class="stat-title">{{ $t('playerProfile.quickStats.totalPoints') }}</div>
-            <div class="stat-value text-primary">{{ playerStats.totalPoints }}</div>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6 graffiti-stats">
+          <div class="stat bg-neutral text-secondary-content rounded-lg border-2 border-primary graffiti-stat">
+            <div class="stat-title text-accent">{{ $t('playerProfile.quickStats.totalPoints') }}</div>
+            <div class="stat-value text-primary text-3xl font-bold graffiti-highlight">{{ playerStats.totalPoints }}</div>
             <div class="stat-desc">{{ $t('common.season') }} {{ player.season_id }}</div>
           </div>
-          
-          <div class="stat bg-base-200 rounded-lg">
-            <div class="stat-title">{{ $t('playerProfile.quickStats.gamesPlayed') }}</div>
-            <div class="stat-value">{{ playerStats.totalGames }}</div>
+          <div class="stat bg-neutral text-secondary-content rounded-lg border-2 border-accent graffiti-stat">
+            <div class="stat-title text-info">{{ $t('playerProfile.quickStats.gamesPlayed') }}</div>
+            <div class="stat-value text-accent text-3xl font-bold graffiti-highlight">{{ playerStats.totalGames }}</div>
             <div class="stat-desc">{{ $t('playerProfile.quickStats.regularSeason') }}</div>
           </div>
-          
-          <div class="stat bg-base-200 rounded-lg">
-            <div class="stat-title">{{ $t('playerProfile.quickStats.pointsPerGame') }}</div>
-            <div class="stat-value text-secondary">{{ playerStats.ppg }}</div>
+          <div class="stat bg-neutral text-secondary-content rounded-lg border-2 border-warning graffiti-stat">
+            <div class="stat-title text-warning">{{ $t('playerProfile.quickStats.pointsPerGame') }}</div>
+            <div class="stat-value text-primary text-3xl font-bold graffiti-highlight">{{ playerStats.ppg }}</div>
             <div class="stat-desc">{{ $t('playerProfile.quickStats.average') }}</div>
           </div>
-          
-          <div class="stat bg-base-200 rounded-lg">
-            <div class="stat-title">{{ $t('playerProfile.quickStats.categories') }}</div>
-            <div class="stat-value text-accent">{{ playerStats.categoriesCount }}</div>
+          <div class="stat bg-neutral text-secondary-content rounded-lg border-2 border-info graffiti-stat">
+            <div class="stat-title text-info">{{ $t('playerProfile.quickStats.categories') }}</div>
+            <div class="stat-value text-accent text-3xl font-bold graffiti-highlight">{{ playerStats.categoriesCount }}</div>
             <div class="stat-desc">{{ $t('playerProfile.quickStats.statisticalCategories') }}</div>
+          </div>
+          <div class="stat bg-neutral text-secondary-content rounded-lg border-2 border-error graffiti-stat">
+            <div class="stat-title text-error">{{ $t('playerProfile.quickStats.leagueRank') }}</div>
+            <div class="stat-value text-error text-3xl font-bold graffiti-highlight">#{{ playerCategories.scoring?.rank || '-' }}</div>
+            <div class="stat-desc">{{ $t('playerProfile.quickStats.league') }} {{ player.liga_id }}</div>
           </div>
         </div>
 
@@ -213,6 +225,12 @@ const props = defineProps({
   }
 })
 
+import { ref, watch } from 'vue'
+const editableNumber = ref(props.player.number || 0)
+const editablePosition = ref(props.player.position || 'GUARD')
+watch(() => props.player.number, (val) => { editableNumber.value = val || 0 })
+watch(() => props.player.position, (val) => { editablePosition.value = val || 'GUARD' })
+
 const emit = defineEmits(['close', 'share', 'export', 'compare', 'viewTeam'])
 
 // Player initials for avatar
@@ -318,7 +336,28 @@ const sharePlayer = () => {
 }
 
 const exportPlayerCard = () => {
-  emit('export', props.player)
+  // Generate card data with stats
+  const cardData = {
+    name: `${props.player.first_name} ${props.player.surname}`,
+    team: props.player.team,
+    season: props.player.season_id,
+    league: props.player.liga_id,
+    number: editableNumber.value,
+    position: editablePosition.value,
+    totalPoints: playerStats.value.totalPoints,
+    totalGames: playerStats.value.totalGames,
+    ppg: playerStats.value.ppg,
+    categories: playerStats.value.categoriesCount,
+    rank: playerCategories.value.scoring?.rank || '-',
+    extracted: new Date().toISOString()
+  }
+  const blob = new Blob([JSON.stringify(cardData, null, 2)], { type: 'application/json' })
+  const link = document.createElement('a')
+  link.href = URL.createObjectURL(blob)
+  link.download = `player_card_${props.player.first_name}_${props.player.surname}_${props.player.season_id}.json`
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
 }
 
 const comparePlayer = () => {

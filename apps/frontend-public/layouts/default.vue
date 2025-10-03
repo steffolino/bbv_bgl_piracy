@@ -18,17 +18,52 @@
             <li><NuxtLink to="/explorer">{{ $t('nav.explorer') }}</NuxtLink></li>
           </ul>
         </div>
-        <NuxtLink to="/" class="btn btn-ghost text-xl">🏀 BGL Stats</NuxtLink>
+        <NuxtLink to="/" class="btn btn-ghost px-2">
+          <svg width="40" height="40" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="animate-bounce">
+            <circle cx="60" cy="60" r="56" stroke="#C9A227" stroke-width="8" fill="#111111" />
+            <text x="50%" y="50%" text-anchor="middle" dy=".35em" font-size="24" font-family="Impact, Arial Black, sans-serif" fill="#C53030" stroke="#F5F3E7" stroke-width="1.5">BBV</text>
+          </svg>
+        </NuxtLink>
       </div>
       
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
-          <li><NuxtLink to="/">{{ $t('nav.dashboard') }}</NuxtLink></li>
-          <li><NuxtLink to="/basketball">🏀 Basketball Stats</NuxtLink></li>
-          <li><NuxtLink to="/players">{{ $t('nav.players') }}</NuxtLink></li>
-          <li><NuxtLink to="/teams">{{ $t('nav.teams') }}</NuxtLink></li>
-          <li><NuxtLink to="/leaders">{{ $t('nav.leaders') }}</NuxtLink></li>
-          <li><NuxtLink to="/explorer">{{ $t('nav.explorer') }}</NuxtLink></li>
+          <li><NuxtLink to="/">
+            <span class="inline-flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" stroke="#C9A227" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/></svg>
+              {{ $t('nav.dashboard') }}
+            </span>
+          </NuxtLink></li>
+          <li><NuxtLink to="/basketball">
+            <span class="inline-flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" stroke="#C53030" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><text x="12" y="16" text-anchor="middle" font-size="10" fill="#C53030">🏀</text></svg>
+              Basketball Stats
+            </span>
+          </NuxtLink></li>
+          <li><NuxtLink to="/players">
+            <span class="inline-flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" stroke="#2563EB" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><text x="12" y="16" text-anchor="middle" font-size="10" fill="#2563EB">👤</text></svg>
+              {{ $t('nav.players') }}
+            </span>
+          </NuxtLink></li>
+          <li><NuxtLink to="/teams">
+            <span class="inline-flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" stroke="#22C55E" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" stroke-width="2"/><text x="12" y="16" text-anchor="middle" font-size="10" fill="#22C55E">👥</text></svg>
+              {{ $t('nav.teams') }}
+            </span>
+          </NuxtLink></li>
+          <li><NuxtLink to="/leaders">
+            <span class="inline-flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" stroke="#DA7635" viewBox="0 0 24 24"><polygon points="12,2 22,22 2,22" stroke-width="2"/><text x="12" y="16" text-anchor="middle" font-size="10" fill="#DA7635">⭐</text></svg>
+              {{ $t('nav.leaders') }}
+            </span>
+          </NuxtLink></li>
+          <li><NuxtLink to="/explorer">
+            <span class="inline-flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" stroke="#F5F3E7" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" stroke-width="2"/><text x="12" y="16" text-anchor="middle" font-size="10" fill="#F5F3E7">🔍</text></svg>
+              {{ $t('nav.explorer') }}
+            </span>
+          </NuxtLink></li>
         </ul>
       </div>
       
@@ -61,22 +96,19 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
-      <slot />
+  <GraffitiHero />
+  <slot />
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-// Enable translations
+import GraffitiHero from '~/components/GraffitiHero.vue'
 const { t } = useI18n()
-
 const currentLocale = ref('de')
-
 function switchLocale(newLocale: string) {
   currentLocale.value = newLocale
-  // TODO: Implement actual locale switching when i18n is enabled
 }
-
 function setTheme(theme: string) {
   if (typeof document !== 'undefined') {
     document.documentElement.setAttribute('data-theme', theme)

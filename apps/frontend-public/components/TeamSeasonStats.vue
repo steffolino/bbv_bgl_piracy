@@ -1,45 +1,47 @@
 <template>
-  <div class="card bg-base-100 shadow-xl">
+  <div class="card bg-base-100 shadow-xl border-4 border-primary graffiti-bg">
     <div class="card-body">
-      <h2 class="card-title">📊 {{ $t('teams.seasonStats.title') }}</h2>
+      <h2 class="card-title text-primary font-extrabold tracking-widest graffiti-title">
+        🏀 <span class="text-accent">{{ $t('teams.seasonStats.title') }}</span>
+      </h2>
       
       <!-- Team Overview Stats (inspired by Basketball Reference team page) -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div class="stat bg-base-200 rounded-lg">
-          <div class="stat-title">{{ $t('teams.seasonStats.rosterSize') }}</div>
-          <div class="stat-value text-primary">{{ teamStats.rosterSize }}</div>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 graffiti-stats">
+  <div class="stat bg-neutral text-secondary-content rounded-lg border-2 border-primary graffiti-stat">
+          <div class="stat-title text-accent">{{ $t('teams.seasonStats.rosterSize') }}</div>
+          <div class="stat-value text-primary text-3xl font-bold graffiti-highlight">{{ teamStats.rosterSize }}</div>
           <div class="stat-desc">{{ $t('teams.seasonStats.activePlayersDesc') }}</div>
         </div>
         
-        <div class="stat bg-base-200 rounded-lg">
-          <div class="stat-title">{{ $t('teams.seasonStats.totalPoints') }}</div>
-          <div class="stat-value text-secondary">{{ teamStats.totalPoints }}</div>
+  <div class="stat bg-neutral text-secondary-content rounded-lg border-2 border-accent graffiti-stat">
+          <div class="stat-title text-info">{{ $t('teams.seasonStats.totalPoints') }}</div>
+          <div class="stat-value text-accent text-3xl font-bold graffiti-highlight">{{ teamStats.totalPoints }}</div>
           <div class="stat-desc">{{ $t('teams.seasonStats.seasonTotalDesc') }}</div>
         </div>
         
-        <div class="stat bg-base-200 rounded-lg">
-          <div class="stat-title">{{ $t('teams.seasonStats.teamPPG') }}</div>
-          <div class="stat-value text-accent">{{ teamStats.teamPPG }}</div>
+  <div class="stat bg-neutral text-secondary-content rounded-lg border-2 border-warning graffiti-stat">
+          <div class="stat-title text-warning">{{ $t('teams.seasonStats.teamPPG') }}</div>
+          <div class="stat-value text-primary text-3xl font-bold graffiti-highlight">{{ teamStats.teamPPG }}</div>
           <div class="stat-desc">{{ $t('teams.seasonStats.pointsPerGameDesc') }}</div>
         </div>
         
-        <div class="stat bg-base-200 rounded-lg">
-          <div class="stat-title">{{ $t('teams.seasonStats.gamesPlayed') }}</div>
-          <div class="stat-value">{{ teamStats.totalGames }}</div>
+  <div class="stat bg-neutral text-secondary-content rounded-lg border-2 border-info graffiti-stat">
+          <div class="stat-title text-info">{{ $t('teams.seasonStats.gamesPlayed') }}</div>
+          <div class="stat-value text-info text-3xl font-bold graffiti-highlight">{{ teamStats.totalGames }}</div>
           <div class="stat-desc">{{ $t('teams.seasonStats.combinedDesc') }}</div>
         </div>
       </div>
 
       <!-- Category Leaders (using real endpoints) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 graffiti-leaders">
         <!-- Best Scorer (statBesteWerferArchiv) -->
-        <div class="card bg-gradient-to-br from-primary to-primary-focus text-primary-content">
+  <div class="card bg-gradient-to-br from-primary to-accent text-primary-content graffiti-leader-card">
           <div class="card-body p-4">
             <h3 class="font-bold mb-2">🎯 {{ $t('teams.seasonStats.bestScorer') }}</h3>
             <div v-if="categoryLeaders.bestScorer" class="space-y-2">
               <div class="text-lg font-bold">{{ categoryLeaders.bestScorer.name }}</div>
               <div class="text-2xl font-extrabold">{{ categoryLeaders.bestScorer.points }}</div>
-              <div class="text-sm opacity-80">{{ categoryLeaders.bestScorer.average }} PPG</div>
+              <div class="text-sm opacity-80 graffiti-ppg">{{ categoryLeaders.bestScorer.average }} PPG</div>
             </div>
             <div v-else class="text-center opacity-50">
               {{ $t('teams.seasonStats.noDataAvailable') }}
@@ -48,12 +50,12 @@
         </div>
 
         <!-- Best Free Throw Shooter (statBesteFreiWerferArchiv) -->
-        <div class="card bg-gradient-to-br from-secondary to-secondary-focus text-secondary-content">
+  <div class="card bg-gradient-to-br from-secondary to-info text-secondary-content graffiti-leader-card">
           <div class="card-body p-4">
             <h3 class="font-bold mb-2">🎯 {{ $t('teams.seasonStats.freeThrowShooter') }}</h3>
             <div v-if="categoryLeaders.freeThrowShooter" class="space-y-2">
               <div class="text-lg font-bold">{{ categoryLeaders.freeThrowShooter.name }}</div>
-              <div class="text-2xl font-extrabold">{{ categoryLeaders.freeThrowShooter.average }}%</div>
+              <div class="text-2xl font-extrabold graffiti-ft">{{ categoryLeaders.freeThrowShooter.average }}%</div>
               <div class="text-sm opacity-80">{{ categoryLeaders.freeThrowShooter.points }}/{{ categoryLeaders.freeThrowShooter.games }}</div>
             </div>
             <div v-else class="text-center opacity-50">
@@ -63,13 +65,13 @@
         </div>
 
         <!-- Best 3-Point Shooter (statBeste3erWerferArchiv) -->
-        <div class="card bg-gradient-to-br from-accent to-accent-focus text-accent-content">
+  <div class="card bg-gradient-to-br from-accent to-info text-accent-content graffiti-leader-card">
           <div class="card-body p-4">
             <h3 class="font-bold mb-2">🎯 {{ $t('teams.seasonStats.threePointShooter') }}</h3>
             <div v-if="categoryLeaders.threePointShooter" class="space-y-2">
               <div class="text-lg font-bold">{{ categoryLeaders.threePointShooter.name }}</div>
               <div class="text-2xl font-extrabold">{{ categoryLeaders.threePointShooter.points }}</div>
-              <div class="text-sm opacity-80">{{ categoryLeaders.threePointShooter.average }} per game</div>
+              <div class="text-sm opacity-80 graffiti-3p">{{ categoryLeaders.threePointShooter.average }} per game</div>
             </div>
             <div v-else class="text-center opacity-50">
               {{ $t('teams.seasonStats.noDataAvailable') }}
@@ -79,10 +81,10 @@
       </div>
 
       <!-- Category Breakdown Table (real categories) -->
-      <div class="mt-6">
+  <div class="mt-6 graffiti-breakdown">
         <h3 class="text-lg font-semibold mb-3">{{ $t('teams.seasonStats.categoryBreakdown') }}</h3>
         <div class="overflow-x-auto">
-          <table class="table table-sm">
+          <table class="table table-sm graffiti-table">
             <thead>
               <tr>
                 <th>{{ $t('teams.seasonStats.category') }}</th>

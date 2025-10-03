@@ -9,6 +9,16 @@
           <span class="position" v-if="position">{{ position }}</span>
           <span class="jersey-number" v-if="jerseyNumber">#{{ jerseyNumber }}</span>
         </div>
+        <div class="flex gap-2 mt-2 items-center">
+          <label class="text-sm font-bold">#</label>
+          <input type="number" v-model="editableNumber" min="0" max="99" class="input input-bordered input-xs w-16" />
+          <label class="text-sm font-bold">Position:</label>
+          <select v-model="editablePosition" class="select select-xs w-32">
+            <option value="GUARD">GUARD</option>
+            <option value="FORWARD">FORWARD</option>
+            <option value="CENTER">CENTER</option>
+          </select>
+        </div>
       </div>
       <div class="player-photo" v-if="playerPhoto">
         <img :src="playerPhoto" :alt="playerName" />
@@ -362,7 +372,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 
 interface PlayerStats {
   games: number
@@ -444,6 +454,12 @@ const props = defineProps<{
   jerseyNumber?: number
   playerPhoto?: string
 }>()
+
+// ...existing code...
+const editableNumber = ref(props.jerseyNumber || 0)
+const editablePosition = ref(props.position || 'GUARD')
+watch(() => props.jerseyNumber, (val) => { editableNumber.value = val || 0 })
+watch(() => props.position, (val) => { editablePosition.value = val || 'GUARD' })
 
 // Reactive state
 const activeTab = ref('current')
