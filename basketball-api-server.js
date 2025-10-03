@@ -19,6 +19,9 @@ app.use(express.json());
 // Database connection
 const dbPath = path.join(__dirname, 'league_cache.db');
 const db = new sqlite3.Database(dbPath);
+// Connect to extended stats/badges DB
+const extendedDbPath = path.join(__dirname, 'oberfranken_ingest.db');
+const extendedDb = new sqlite3.Database(extendedDbPath);
 
 console.log('🏀 Basketball API Server Starting...');
 console.log(`📁 Database: ${dbPath}`);
@@ -171,7 +174,6 @@ app.get('/api/players/:id', (req, res) => {
       if (!player) {
         return res.status(404).json({ error: 'Player not found' });
       }
-
       // Get all seasons for this player (by name)
       db.all(
         'SELECT * FROM current_player_stats WHERE player_name = ? ORDER BY season DESC',
@@ -187,59 +189,29 @@ app.get('/api/players/:id', (req, res) => {
           const totalPoints = allSeasons.reduce((sum, s) => sum + s.points_total, 0);
           const careerPPG = totalGames > 0 ? totalPoints / totalGames : 0;
 
-          // Transform last 5 seasons
+          // Transform last 5 seasons (real data only)
           const lastFiveSeasons = allSeasons.slice(0, 5).map(season => ({
             season: season.season,
             team: season.team_name,
             games: season.games_played,
             pointsPerGame: season.points_avg,
-            reboundsPerGame: 0,
-            assistsPerGame: 0,
-            totalPoints: season.points_total,
-            totalRebounds: 0,
-            totalAssists: 0
+            totalPoints: season.points_total
           }));
 
-          // Create response
+          // Create response with only real DB data
           const response = {
             player: {
               id: player.id,
               name: player.player_name,
               currentTeam: player.team_name,
-              teamId: `team-${player.team_name.toLowerCase().replace(/\s+/g, '-')}`,
-              league: 'Bezirksliga Oberfranken',
-              position: 'Guard/Forward'
+              league: 'Bezirksliga Oberfranken'
             },
             currentSeason: {
               season: player.season,
               stats: {
                 games: player.games_played,
                 pointsPerGame: player.points_avg,
-                reboundsPerGame: 0,
-                assistsPerGame: 0,
-                totalPoints: player.points_total,
-                totalRebounds: 0,
-                totalAssists: 0
-              },
-              recentGames: [
-                {
-                  date: '2025-09-28',
-                  opponent: 'BBC Bayreuth',
-                  points: Math.round(player.points_avg),
-                  rebounds: 5,
-                  assists: 3,
-                  fieldGoals: '8/15',
-                  threePointers: '2/5',
-                  freeThrows: '2/2',
-                  gameResult: 'W',
-                  gameScore: '85-78'
-                }
-              ],
-              trends: {
-                pointsChange: 0,
-                reboundsChange: 0,
-                assistsChange: 0,
-                efficiency: 'steady'
+                totalPoints: player.points_total
               }
             },
             lastFiveSeasons,
@@ -247,51 +219,17 @@ app.get('/api/players/:id', (req, res) => {
               totalSeasons: allSeasons.length,
               totalGames,
               totalPoints,
-              totalRebounds: 0,
-              totalAssists: 0,
               avgPointsPerGame: Math.round(careerPPG * 10) / 10,
-              avgReboundsPerGame: 0,
-              avgAssistsPerGame: 0,
               bestSeason: {
-                season: allSeasons[0]?.season || 'N/A',
+                season: allSeasons[0]?.season || null,
                 pointsPerGame: Math.max(...allSeasons.map(s => s.points_avg))
               }
             },
-            advancedStats: {
-              playerEfficiencyRating: Math.round((player.points_avg * 1.2 + 5) * 10) / 10,
-              trueShootingPercentage: Math.round((50 + Math.random() * 15) * 10) / 10,
-              usageRate: Math.round((20 + Math.random() * 10) * 10) / 10,
-              winShares: Math.round((player.points_avg * 0.15) * 10) / 10
-            },
-            milestones: [
-              {
-                id: '200-points',
-                title: '200 Career Points',
-                target: 200,
-                current: totalPoints,
-                achieved: totalPoints >= 200
-              },
-              {
-                id: '500-points',
-                title: '500 Career Points',
-                target: 500,
-                current: totalPoints,
-                achieved: totalPoints >= 500
-              },
-              {
-                id: '1000-points',
-                title: '1,000 Career Points',
-                target: 1000,
-                current: totalPoints,
-                achieved: totalPoints >= 1000
-              }
-            ],
             teamHistory: allSeasons.map((season, index) => ({
               team: season.team_name,
               startSeason: season.season,
               games: season.games_played,
               avgPointsPerGame: season.points_avg,
-              achievements: [],
               isCurrent: index === 0
             }))
           };
@@ -302,6 +240,63 @@ app.get('/api/players/:id', (req, res) => {
     }
   );
 });
+
+  /**
+   * GET /api/players/:id/extended-stats
+   * Get extended stats for a player
+   */
+  app.get('/api/players/:id/extended-stats', (req, res) => {
+    const { id } = req.params;
+    db.get('SELECT player_name FROM current_player_stats WHERE id = ?', [id], (err, player) => {
+      if (err || !player) {
+        return res.status(404).json({ error: 'Player not found' });
+      }
+      extendedDb.all('SELECT * FROM player_extended_stats WHERE player_name = ?', [player.player_name], (err, rows) => {
+        if (err) {
+          return res.status(500).json({ error: 'Database error' });
+        }
+        res.json({ extendedStats: rows });
+      });
+    });
+  });
+
+  /**
+   * GET /api/players/:id/badges
+   * Get badges for a player
+   */
+  app.get('/api/players/:id/badges', (req, res) => {
+    const { id } = req.params;
+    db.get('SELECT player_name FROM current_player_stats WHERE id = ?', [id], (err, player) => {
+      if (err || !player) {
+        return res.status(404).json({ error: 'Player not found' });
+      }
+      extendedDb.all('SELECT * FROM player_badges WHERE player_name = ?', [player.player_name], (err, rows) => {
+        if (err) {
+          return res.status(500).json({ error: 'Database error' });
+        }
+        res.json({ badges: rows });
+      });
+    });
+  });
+
+  /**
+   * GET /api/players/:id/badges
+   * Get badges for a player
+   */
+  app.get('/api/players/:id/badges', (req, res) => {
+    const { id } = req.params;
+    db.get('SELECT player_name FROM current_player_stats WHERE id = ?', [id], (err, player) => {
+      if (err || !player) {
+        return res.status(404).json({ error: 'Player not found' });
+      }
+      extendedDb.all('SELECT * FROM player_badges WHERE player_name = ?', [player.player_name], (err, rows) => {
+        if (err) {
+          return res.status(500).json({ error: 'Database error' });
+        }
+        res.json({ badges: rows });
+      });
+    });
+  });
 
 /**
  * GET /api/teams

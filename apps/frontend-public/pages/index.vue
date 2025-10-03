@@ -1,26 +1,33 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-orange-950">
+  <div class="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-orange-950 font-sans">
     <!-- Hero Section -->
-    <div class="hero min-h-screen relative overflow-hidden">
+  <div class="hero min-h-screen relative overflow-hidden flex flex-col justify-between">
       <!-- Animated Background -->
-      <div class="absolute inset-0 opacity-10">
-        <div class="absolute top-20 left-20 w-96 h-96 bg-orange-500 rounded-full filter blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-20 right-20 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl animate-pulse delay-1000"></div>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-500 rounded-full filter blur-3xl animate-pulse delay-500"></div>
+      <div class="absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true">
+        <div class="absolute top-20 left-20 w-96 h-96 bg-orange-500 rounded-full filter blur-3xl animate-pulse animate-float"></div>
+        <div class="absolute bottom-20 right-20 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl animate-pulse animate-float delay-1000"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-500 rounded-full filter blur-3xl animate-pulse animate-float delay-500"></div>
+        <!-- Subtle Basketball Accent -->
+        <svg class="absolute bottom-4 left-4 w-20 h-20 opacity-20 animate-float" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <circle cx="32" cy="32" r="30" stroke="#F7931E" stroke-width="4" fill="#ff6b35" />
+        </svg>
       </div>
       
-      <div class="hero-content text-center max-w-7xl relative z-10">
+  <div class="hero-content text-center max-w-7xl relative z-10" aria-label="Basketball Analytics Portal">
         <div class="max-w-4xl">
           <!-- Main Title -->
           <div class="mb-8">
-            <h1 class="text-6xl md:text-8xl font-black mb-4 bg-gradient-to-r from-orange-400 via-yellow-300 to-orange-500 bg-clip-text text-transparent drop-shadow-2xl">
-              BASKETBALL
+            <h1 class="text-6xl md:text-8xl font-black mb-4 bg-gradient-to-r from-orange-400 via-yellow-300 to-orange-500 bg-clip-text text-transparent drop-shadow-2xl tracking-tight" tabindex="0">
+              <span class="sr-only">Basketball Analytics Portal</span>
+              <span aria-hidden="true">BASKETBALL</span>
+              <span class="ml-2 text-3xl md:text-5xl font-extrabold text-white drop-shadow-lg">🏀</span>
             </h1>
-            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">
-              Analytics Portal
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+              Analytics Portal <span class="ml-2 text-orange-400">✦</span>
             </h2>
             <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Dive deep into German basketball data with <span class="text-orange-400 font-bold">12,377+</span> real players, comprehensive statistics, and stunning visualizations
+              Dive deep into German basketball data with <span class="text-orange-400 font-bold">12,377+</span> real players, comprehensive statistics, and <span class="text-gradient font-bold">stunning visualizations</span>.<br>
+              <span class="text-white font-bold">Basketball</span> <span class="text-orange-400">meets style</span>.
             </p>
           </div>
           
@@ -28,7 +35,8 @@
           <div class="mb-12">
             <NuxtLink 
               to="/basketball" 
-              class="btn btn-lg px-12 py-4 text-xl font-bold bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 border-0 text-black shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-orange-500/25"
+              class="btn btn-lg px-12 py-4 text-xl font-bold bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 border-0 text-black shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-orange-500/25 focus:outline-none focus:ring-4 focus:ring-orange-400"
+              aria-label="Explore Basketball Stats"
             >
               🏀 Explore Basketball Stats
               <span class="badge badge-neutral ml-2 text-sm">12,377+ Players</span>
@@ -36,7 +44,7 @@
           </div>
           
           <!-- Statistics Grid -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12" aria-label="Basketball Statistics Overview">
             <div class="glass-card bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
               <div class="text-4xl font-black text-orange-400 mb-2">{{ realDataStats.leagues }}</div>
               <div class="text-white/70 font-medium">Leagues</div>
@@ -59,7 +67,7 @@
           </div>
 
           <!-- Featured Content Grid -->
-          <div class="grid md:grid-cols-3 gap-8 mb-12">
+          <div class="grid md:grid-cols-3 gap-8 mb-12" aria-label="Featured Content">
             <!-- Real Player Data -->
             <div class="glass-card bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all duration-300">
               <div class="text-6xl mb-4">🏀</div>
@@ -162,7 +170,7 @@
           </div>
 
           <!-- Team Spotlight Section -->
-          <div class="glass-card bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 mb-12 hover:bg-white/10 transition-all duration-300">
+          <div class="glass-card bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 mb-12 hover:bg-white/10 transition-all duration-300" aria-label="Team Spotlight">
             <div class="flex items-center gap-4 mb-6">
               <div class="text-6xl">⭐</div>
               <div>
@@ -249,7 +257,7 @@
           </div>
 
           <!-- Navigation Grid -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4" aria-label="Navigation">
             <NuxtLink to="/basketball" class="glass-card bg-orange-500/10 backdrop-blur-xl border border-orange-500/20 rounded-2xl p-6 hover:bg-orange-500/20 transition-all duration-300 group">
               <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🏀</div>
               <div class="text-white font-bold">Player Analytics</div>
@@ -277,13 +285,20 @@
 
           <!-- Live Deployment Badge -->
           <div class="mt-12">
-            <div class="alert bg-green-500/10 border border-green-500/20 backdrop-blur-xl rounded-2xl">
-              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span class="text-white">
-                🚀 <strong>Live on Cloudflare</strong> - Real German Basketball Federation Data - {{ realDataStats.matches }} matches from {{ realDataStats.yearRange }}
-              </span>
+            <div class="alert bg-green-500/10 border border-green-500/20 backdrop-blur-xl rounded-2xl flex flex-col md:flex-row items-center justify-between" role="status">
+              <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span class="text-white">
+                  🚀 <strong>Live on Cloudflare</strong> - Real German Basketball Federation Data - {{ realDataStats.matches }} matches from {{ realDataStats.yearRange }}
+                </span>
+              </div>
+              <div class="mt-2 md:mt-0 flex gap-2">
+                <span class="badge badge-success text-xs">Accessible</span>
+                <span class="badge badge-info text-xs">WCAG AA</span>
+                <span class="badge badge-warning text-xs">Slick Swag</span>
+              </div>
             </div>
           </div>
         </div>
@@ -419,11 +434,30 @@ onMounted(() => {
   animation: float 3s ease-in-out infinite;
 }
 
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+
 /* Enhanced gradients */
 .text-gradient {
   background: linear-gradient(135deg, #ff6b35, #f7931e, #ffd700);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Responsive font and card tweaks */
+@media (max-width: 640px) {
+  h1, h2, h3 {
+    font-size: 1.5rem !important;
+  }
+  .glass-card {
+    padding: 1rem !important;
+    font-size: 0.95rem !important;
+  }
 }
 </style>

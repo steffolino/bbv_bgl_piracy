@@ -1,56 +1,39 @@
 export default defineNuxtConfig({
+  css: [
+    '@/assets/css/main.css',
+  ],
   modules: [
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/i18n'
+    'nuxt-icon',
+    'nuxt-head',
+    'nuxt-i18n',
   ],
-  
-  runtimeConfig: {
-    public: {
-      apiBase: process.env.PUBLIC_API_BASE || 'https://basketball-api.inequality.workers.dev'
-    }
+  tailwindcss: {
+    viewer: false,
   },
-
-  // GitHub Pages configuration
-  target: 'static',
-  ssr: false,
-  nitro: {
-    prerender: {
-      routes: ['/basketball']
-    }
-  },
-
   app: {
-    baseURL: '/'
+    baseURL: '/',
   },
-
   i18n: {
     locales: [
       {
         code: 'de',
         name: 'Deutsch',
-        file: 'de.json'
+        file: 'de.json',
       },
       {
         code: 'en',
-        name: 'English', 
-        file: 'en.json'
-      }
+        name: 'English',
+        file: 'en.json',
+      },
     ],
     langDir: 'locales/',
-    defaultLocale: 'de'
+    defaultLocale: 'de',
   },
-
-  css: ['~/assets/css/main.css'],
-
   devtools: { enabled: true },
-
-  tailwindcss: {
-    config: {
-      plugins: [require('daisyui')],
-      daisyui: {
-        themes: ['light', 'dark'],
-        darkTheme: 'dark'
-      }
-    }
-  }
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://basketball-api.inequality.workers.dev',
+    },
+  },
 })
