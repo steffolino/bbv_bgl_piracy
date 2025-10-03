@@ -1,0 +1,43 @@
+/* Graffiti/hip hop brutalist styles for basketball UI */
+.graffiti-bg {
+  background: repeating-linear-gradient(135deg, #111 0px, #111 40px, #F5F3E7 40px, #F5F3E7 80px);
+}
+.graffiti-title {
+  font-family: 'Permanent Marker', 'Arial Black', cursive, sans-serif;
+  letter-spacing: 0.1em;
+  text-shadow: 2px 2px 0 #C53030, 4px 4px 0 #2563EB;
+}
+.graffiti-highlight {
+  text-shadow: 0 0 8px #C9A227, 0 0 2px #2563EB;
+}
+.graffiti-stat {
+  box-shadow: 0 2px 8px #C53030, 0 0 0 4px #C9A227 inset;
+}
+.graffiti-leader-card {
+  border-radius: 1.5rem;
+  border-width: 3px;
+  border-color: #C53030;
+  box-shadow: 0 0 12px #2563EB;
+}
+.graffiti-ppg {
+  color: #C9A227;
+  font-weight: bold;
+  font-family: 'Permanent Marker', cursive;
+}
+.graffiti-ft {
+  color: #2563EB;
+  font-weight: bold;
+}
+.graffiti-3p {
+  color: #C53030;
+  font-weight: bold;
+}
+.graffiti-breakdown {
+  background: linear-gradient(90deg, #111 60%, #C9A227 100%);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+.graffiti-table th, .graffiti-table td {
+  border-bottom: 2px dashed #C53030;
+  font-family: 'Permanent Marker', cursive;
+}

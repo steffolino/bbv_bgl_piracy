@@ -8,20 +8,21 @@
     "preview": "nuxt preview",
     "typecheck": "nuxt typecheck",
     "lint": "eslint .",
-    "clean": "rm -rf .turbo node_modules .nuxt .output dist"
+    "clean": "rimraf .turbo node_modules .nuxt .output dist"
   },
   "dependencies": {
     "@bg/shared": "workspace:*",
+    "@jridgewell/trace-mapping": "^0.3.31",
     "@nuxtjs/i18n": "^10.1.0",
     "@nuxtjs/tailwindcss": "^6.8.4",
-    "daisyui": "^4.4.24",
+    "daisyui": "^4.12.24",
     "html2canvas": "^1.4.1",
     "nuxt": "^4.1.2"
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.2.0",
     "eslint": "^8.55.0",
-    "tailwindcss": "^3.3.6",
+    "tailwindcss": "^3.4.17",
     "typescript": "^5.3.0"
   }
 }
